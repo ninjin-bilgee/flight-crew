@@ -18,18 +18,17 @@ candidate_map = {}
 def get_file_hash(file_bytes):
     return hashlib.sha256(file_bytes).hexdigest()
 
-# Anonymizes text by replacing detected names and other PIIs with redactions
 def anonymize(text, candidate_id):
     doc = nlp(text)
-
+    
     # Strip names spaCy detects
     for ent in sorted(doc.ents, reverse=True, key=lambda e: e.start_char):
         if ent.label_ == "PERSON":
             text = text[:ent.start_char] + candidate_id + text[ent.end_char:]
-
+    
     # Detect oddly spelled out names
     text = re.sub(r'\b([A-Z]\s){2,}[A-Z]\b', '[name removed]', text)
-
+    
     # Detect other PIIs
     text = re.sub(r'[\w\.-]+@[\w\.-]+\.\w+', '[email removed]', text)
     text = re.sub(r'\(?\d{3}\)?[\s.\-]\d{3}[\s.\-]\d{4}', '[phone removed]', text)
@@ -39,9 +38,9 @@ def anonymize(text, candidate_id):
     return text
 
 # Change these numbers to test different subsets
-RESUMES_TO_TEST = [1, 2, 3, 4, 5]
+RESUMES_TO_TEST = [6, 7, 8, 9, 10]
 
-os.makedirs('resumes_extracted_md', exist_ok=True)
+os.makedirs('resumes_extracted_txt', exist_ok=True)
 
 # Process each resume PDF, extract markdown, anonymize, and save
 for num in RESUMES_TO_TEST:
@@ -71,7 +70,7 @@ for num in RESUMES_TO_TEST:
     md = pymupdf4llm.to_markdown(pdf_path)
     md_clean = anonymize(md, candidate_id)
 
-    output_path = f"resumes_extracted_md/{candidate_id}.md"
+    output_path = f"resumes_extracted_txt/{candidate_id}.txt"
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(md_clean)
 

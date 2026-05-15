@@ -2,7 +2,9 @@ import spacy
 import re
 import pymupdf4llm
 import os
+import hashlib
 
+# Import the spacy model for entity recognition
 nlp = spacy.load("en_core_web_sm")
 
 def anonymize(text, candidate_id):
