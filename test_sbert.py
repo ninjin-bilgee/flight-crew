@@ -4,7 +4,7 @@ from sentence_transformers import SentenceTransformer
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 #Sample sentences
-resume_text = "Experienced Python developer with a focus on machine learning."
+resume_text = "Experienced Java developer professional at systems."
 job_description = "Seeking a Machine Learning Engineer proficient in Python."
 
 #Generate embeddings
