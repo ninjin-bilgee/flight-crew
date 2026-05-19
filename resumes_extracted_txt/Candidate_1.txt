@@ -1,62 +1,72 @@
-## **YOUR NAME** 
+[name removed] 
 
-Berkeley, CA | [phone removed] | [email removed]  | Linkedin | website, and/or portfolio URL (optional) 
+San Francisco Bay Area | [removed] | [removed] | [removed] 
 
-## **Education** 
+EDUCATION 
 
-**University of California, Berkeley May 2026** Bachelor of Arts in Data Science GPA: ___/4.0 (optional) 
+University of California, Berkeley, College of Chemistry , Berkeley, CA Expected : May 2026 Bachelor of Science in Chemistry, Minor in Material Science GPA: 3.56/4.0 
 
-**Relevant Coursework:** Data Structures & Algorithms, Modern Statistical Prediction & Machine Learning, Principles & Techniques of Data Science, Data, Inference, & Decisions, and Human Contexts & Ethics of Data 
+Relevant Coursework : Quantum Mechanics, Applied Data Science, Advanced Python, Thermodynamics, Organic Chemistry, Inorganic Chemistry, Instrumental Analysis, Multivariable Calculus, Corrosion Engineering 
 
-## **Skills** 
+Berkeley Hills College May 2024 GPA: 3.96/4.0 
 
-**Languages:** SQL, Python, R, Candidate_1 **Databases:** MySQL, SQLite 
+Associate of Science in Chemistry 
 
-**Machine Learning:** Scikit-learn, SAS 
+SKILLS 
 
-**Tools:** Pandas, Candidate_1, Tableau, Excel, BeautifulSoup 
+Laboratory Techniques : NMR, IR, UV-Vis, HPLC, thin-layer chromatography, crystallization Programming Languages : MATLAB, Python, Java 
 
-## **Highlighted Experience and Projects** 
+Software : Microsoft Office Suite: Word, Excel, and PowerPoint, Google Workspace, Canva, Adobe, ChemDraw Spoken Languages : Fluent in Spanish & German 
 
-- **Data Analyst Intern,** ABC Company, San Francisco, CA **Summer 2025** ● Analyzed user engagement data using SQL and Python (Candidate_1, Candidate_1) to identify trends in app usage, providing insights that supported a 15% increase in user acquisition for high-value user segments 
+RESEARCH EXPERIENCE 
 
-   - Developed and implemented data cleaning procedures (Python) for a customer satisfaction survey dataset, leading to a 10% reduction in data processing time for future surveys 
+Berkeley Lab June 2025 - August 2025 Research Analyst Berkeley, CA • Synthesized supramolecular metalloporphyrin catalysts assembled at materials interfaces for electrochemical nitrogen fixation 
 
-   - Collaborated with software engineers to understand data storage structures and API functionalities, ensuring accurate data retrieval for analysis 
+- Presented findings to a research lab group of 20 
 
-**Datathon Project: Predicting Customer Churn for XYZ Company Spring 2025** 
+Chemical Technologies 
 
-   - Led a team of 4 in the exploration of customer data, uncovering key trends and patterns related to churn 
+Chemical Technologies May 2024 - August 2024 Process Chemistry Intern Newark _,_ NJ 
 
-   - Guided team in selecting machine learning algorithms using Scikit-learn for churn prediction; oversaw model training, evaluation, and hyperparameter tuning to optimize performance 
+- Proposed and developed new synthetic route to a biologically active molecule 
 
-   - Prepared and delivered a final presentation to datathon judges, highlighting key findings and model performance (78% accuracy on unseen test data) 
+- Assisted Senior Scientists with optimization studies on a biocatalytic reaction 
 
-- **Project: Fantasy Football Modeling,** Course: Data and Decisions **Fall 2024** 
+Children’s Hospital 
 
-   - Aggregated and prepped 5 years of NFL fantasy football projection data from 6 independent sources into a MySQL database 
+Pediatric Research Center Intern 
 
-   - Built a random forest model in SAS that improved projection accuracy by combining the disparate sources into one projection that outperformed the mean absolute error of the next best projection by 18% 
+May 2023 - August 2023 Philadelphia _,_ PA 
 
-**Project: Production Control,** Course:  System and Analysis Design **Spring 2024** 
+- Applied stereological techniques to study the effects of exercise and drugs on the brainstems of cerebral palsy mice in order to assess the validity of a mouse model 
 
-- Led a team of five students in designing, coding, and implementing a SQL database 
+- Assisted graduate students with daily care of lab animals 
 
-- Entered and updated information using the web scraping tool BeautifulSoup 
+LEADERSHIP 
 
-- Completed analysis and designed documentation with data flow diagrams, structural charts, process specifications, a data dictionary, and a user manual 
+College of Chemistry Peer Tutoring Center 
 
-## **Leadership and Extracurricular Activities** 
+Lead Tutor 
 
-**Data Structures Undergraduate Student Instructor** , UC Berkeley EECS Dept **Sept. 2024 - May 2025** 
+August 2024 - Present Berkeley, CA 
 
-- Supported biweekly sections of 100+ students to help reinforce core data structures concepts (e.g. asymptotics, linked lists, trees, searching/sorting algorithms, etc.) 
+- Tutored students in undergraduate quantum mechanics, organic chemistry, and inorganic chemistry 
 
-- Shaped course curriculum by developing relevant enrichment problems to help students master concepts 
+- Improved exam performance of over 25 students by at least one letter grade 
 
-**CS Educator / Events Committee Member** , Candidate_1*Sept. 2023 - May 2024** 
+College of Chemistry Covalent Club 
 
-- Improved computer science education in under-resourced communities across the Bay Area 
+March 2024 - May 2024 
 
-- Taught a weekly project-based after-school program at Bay Area middle schools 
+Vice President 
+
+- Modeled a ventilation system inside a Martian spacesuit glove to support a graduate group’s research proposal 
+
+- Led on-campus meetings and facilitated communications between members and other campus organizations 
+
+AWARDS 
+
+College of Chemistry Summer Research Fellowship May 2024 Bay Area Outstanding Young Women in Chemistry Award May 2023 
+
+1 
 

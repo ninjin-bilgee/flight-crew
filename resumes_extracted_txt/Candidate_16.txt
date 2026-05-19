@@ -1,0 +1,62 @@
+[name removed] 
+
+Berkeley, CA | [removed] | [removed]  | [removed] | [removed] 
+
+Education 
+
+University of California, Berkeley May 2026 Bachelor of Arts in Data Science GPA: ___/4.0 (optional) 
+
+Relevant Coursework: Data Structures & Algorithms, Modern Statistical Prediction & Machine Learning, Principles & Techniques of Data Science, Data, Inference, & Decisions, and Human Contexts & Ethics of Data 
+
+Skills 
+
+Languages: SQL, Python, R, Java Databases: MySQL, SQLite 
+
+Machine Learning: Scikit-learn, SAS 
+
+Tools: Pandas, Matplotlib, Tableau, Excel, BeautifulSoup 
+
+Highlighted Experience and Projects 
+
+- Data Analyst Intern, ABC Company, San Francisco, CA Summer 2025 ● Analyzed user engagement data using SQL and Python (Pandas, Matplotlib) to identify trends in app usage, providing insights that supported a 15% increase in user acquisition for high-value user segments 
+
+   - Developed and implemented data cleaning procedures (Python) for a customer satisfaction survey dataset, leading to a 10% reduction in data processing time for future surveys 
+
+   - Collaborated with software engineers to understand data storage structures and API functionalities, ensuring accurate data retrieval for analysis 
+
+Datathon Project: Predicting Customer Churn for XYZ Company Spring 2025 
+
+   - Led a team of 4 in the exploration of customer data, uncovering key trends and patterns related to churn 
+
+   - Guided team in selecting machine learning algorithms using Scikit-learn for churn prediction; oversaw model training, evaluation, and hyperparameter tuning to optimize performance 
+
+   - Prepared and delivered a final presentation to datathon judges, highlighting key findings and model performance (78% accuracy on unseen test data) 
+
+- Project: Fantasy Football Modeling, Course: Data and Decisions Fall 2024 
+
+   - Aggregated and prepped 5 years of NFL fantasy football projection data from 6 independent sources into a MySQL database 
+
+   - Built a random forest model in SAS that improved projection accuracy by combining the disparate sources into one projection that outperformed the mean absolute error of the next best projection by 18% 
+
+Project: Production Control, Course:  System and Analysis Design Spring 2024 
+
+- Led a team of five students in designing, coding, and implementing a SQL database 
+
+- Entered and updated information using the web scraping tool BeautifulSoup 
+
+- Completed analysis and designed documentation with data flow diagrams, structural charts, process specifications, a data dictionary, and a user manual 
+
+Leadership and Extracurricular Activities 
+
+Data Structures Undergraduate Student Instructor , UC Berkeley EECS Dept Sept. 2024 - May 2025 
+
+- Supported biweekly sections of 100+ students to help reinforce core data structures concepts (e.g. asymptotics, linked lists, trees, searching/sorting algorithms, etc.) 
+
+- Shaped course curriculum by developing relevant enrichment problems to help students master concepts 
+
+CS Educator / Events Committee Member , Berkeley ANova Sept. 2023 - May 2024 
+
+- Improved computer science education in under-resourced communities across the Bay Area 
+
+- Taught a weekly project-based after-school program at Bay Area middle schools 
+
