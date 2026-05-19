@@ -1,50 +1,49 @@
 # importing libraries used to extract text and regex text cleaning
-import pdfplumber
 import re
-from nltk.tokenize import sent_tokenize
 
-def extract_raw_text(filepath):
-    text = ""
+# loads extracted txt resume file
+def load_txt_file(filepath):
 
-    # opening pdf file
-    with pdfplumber.open(filepath) as pdf:
-        for page in pdf.pages:
-            page_text = page.extract_text()
+    # open txt file with utf-8 encoding
+    with open(filepath, "r", encoding="utf-8") as file:
 
-            if page_text:
-            # adding page text to full text string
-                text += page_text + "\n"
-    
-    # removing extra whitespace and returning
-    return text.strip()
+        # read all text from file
+        text = file.read()
 
-# cleaning the extracted text whule preserving sentence meaning for SBERT
+    # return raw extracted text
+    return text
+
+
+# cleans text for SBERT embeddings
 def clean_text_for_sbert(raw_text):
 
-    # normalizing whitespace
-    text = re.sub(r'\s+', ' ', raw_text).strip()
+    # lowercase text for consistent comparisons
+    text = raw_text.lower()
 
-    # removing non-english characters while keeping punctuation
-    text = re.sub(r'[^\x00-\x7f]+', '', text)
+    text = text.replace("removed", "")
 
-    # splitting text into sentences
-    sentences = sent_tokenize(text)
+    # normalize whitespace/newlines into single spaces
+    text = re.sub(r'\s+', ' ', text).strip()
 
-    # removing empty sentences and trim spaces
-    cleaned_sentences = [
-        sentence.strip()
-        for sentence in sentences
-        if sentence.strip()
-    ]
+    # lightly remove weird special characters
+    # while preserving semantic meaning
+    text = re.sub(r'[^\w\s.,()-]', ' ', text)
 
-    return cleaned_sentences
+    # normalize spaces again after regex cleanup
+    text = re.sub(r'\s+', ' ', text).strip()
 
-# this is the full preprocessing pipeline
-def process_resume(filepath):
+    # return cleaned text
+    return text
 
-    # extracting raw text from resume/clean extracted text
-    raw_text = extract_raw_text(filepath)
 
-    cleaned_sentences = clean_text_for_sbert(raw_text)
+# full preprocessing pipeline
+def process_resume(txt_filepath):
 
-    return cleaned_sentences
+    # load extracted txt file
+    raw_text = load_txt_file(txt_filepath)
+
+    # clean text for embeddings
+    cleaned_text = clean_text_for_sbert(raw_text)
+
+    # return one cleaned string
+    return cleaned_text

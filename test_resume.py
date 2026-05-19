@@ -2,13 +2,13 @@
 from preprocessing import process_resume
 
 
-# process sample resume PDF
-sentences = process_resume("sample_resume.pdf")
+# process extracted txt resume
+cleaned_resume = process_resume(
+    "resumes_extracted_txt/Candidate_1.txt"
+)
 
 
-# print processed SBERT-ready sentences
-print("SBERT READY SENTENCES:")
+# print cleaned output
+print("CLEANED RESUME:")
 
-# print every cleaned sentence
-for sentence in sentences:
-    print("-", sentence)
+print(cleaned_resume)
