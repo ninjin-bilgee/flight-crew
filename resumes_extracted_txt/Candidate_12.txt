@@ -1,64 +1,74 @@
 [name removed] 
 
-City, State (abbreviated) | [removed] | berkeley.edu email | [removed] | Portfolio 
+[removed], [removed] 
+
+SUMMARY OF QUALIFICATIONS 
+
+- Experience with Microsoft Access database management and reporting; working knowledge of Esawin, MATLAB and SPSS 
+
+- Strong analytical and scientific reasoning skills acquired through academic distinction 
+
+- Practical experience working in a physics laboratory, including using measurement tools, lab equipment, and following safety procedures 
+
+- Communication, time management, and organizational skills developed through balancing employment and volunteer experience while maintaining a strong academic average 
+
+- Valid G2 Driver’s License with a reliable vehicle 
 
 EDUCATION 
 
-UNIVERSITY OF CALIFORNIA, BERKELEY – Berkeley, CA 
+Honors B.S. Physics, Medical Physics Co-op 
 
-- B.A. in Architecture, Minor in Sustainable Design 
+Sept. 2019 - Present 
 
-GPA: 3.XX/4.00 Expected May, 20XX 
+University of Windsor, Windsor, ON 
 
-- Related Coursework: Fundamentals of Architecture Design, Introduction to Visual Representation and Drawing, Introduction to Construction, Introduction to Structures, Sustainable Landscapes and Cities, Architectural Design Studios 
+- Dean’s Honor Roll (GPA 3.80) 
 
-WORK EXPERIENCE 
+- Member of Golden Key International Honor Society 
 
-GREENBUILD SOLUTIONS, Los Angeles, CA 
+PROFESSIONAL EXPERIENCE 
 
-Architectural Intern 
+Clinic Administrative Assistant 
 
-June – Aug 20XX 
+May 2019 - Present 
 
-- Researched sustainable building materials and presented findings to five-person team, resulting in implementation of eco-friendly materials and 15% reduction in environmental impact. 
+Windsor Medical Clinic, Windsor, ON 
 
-- Created a scheme for a new sustainable office space using reclaimed materials and incorporating innovative office and meeting space solutions. 
+- Introduced a more efficient filing system that reduced the staff file retrieval time by 20% 
 
-- Collaborated with a team of engineers and contractors to ensure compliance with building codes and regulations, contributing to project’s successful on-time completion. 
+- Maintain patient databases and create reports using MS Access and Excel 
 
-CAMPUS LEADERSHIP & INVOLVEMENT 
+- Provide administrative support to a team of healthcare professionals 
 
-CAL CONSTRUCTION COMPETITION TEAM, UC Berkeley 
+- Maintain detailed records, coordinate meetings, process invoices, and liaise with vendors 
 
-Aug 20XX – Present 
+Laboratory Assistant 
 
-Design-Build Project Manager 
+University of Windsor, Windsor, ON 
 
-- Created project schedules using historical data from prior projects to inform design, procurement, and construction. 
+Oct. 2019 - Mar. 2020 
 
-- Applied construction and industry software knowledge acquired from attending workshops on reading construction documents, estimating, scheduling, and creating site plans. 
+- Explored the growing development in laser-induced breakdown spectroscopy 
 
-- Trained for and competed in a six-person team in 20XX ASC Regional Competition. Modeled building components in Revit, analyzed clash detections, solved site logistics & coordination issues, and presented findings to judges. 
+- Investigated new techniques for the preparation of bacterial placement surfaces 
 
-AMERICAN INSTITUTE OF ARCHITECTURE STUDENTS (AIAS), Berkeley, CA 
+- Assisted in experimental alignment and data collection 
 
-Aug 20XX – [removed]reviews, and firm tours. 
+- Analyzed and compared spectral intensities using various software packages 
 
-- Assisted in outreach efforts to recruit new members, contributing to a 20% increase in membership from the previous year. 
+VOLUNTEERING & LEADERSHIP 
 
-COURSE PROJECT 
+Vice President 
 
-INTRODUCTION TO ENVIRONMENTAL DESIGN COURSE, UC Berkeley Project Proposal for Lake Chabot Cultural District, Oakland, CA 
+Dec. 2019 - Present 
 
-Spring 20XX 
+University of Windsor Physics Club, Windsor, ON 
 
-- To improve livability of Lake Chabot district, proposed comprehensive solutions addressing residential needs, economic sustainability, transportation efficiency, and fostering community engagement through celebratory events. 
+- Delivered engaging and interactive presentations to high school physics classes, resulting in positive feedback and invitations for additional sessions. Organized club meetings and events. 
 
-- Performed detailed context analysis of the Lake Chabot site using ArcGIS, evaluating cultural, transportation, recreational, and demographic factors to inform strategic planning and decision-making. 
+Medical Volunteer 
 
-SKILLS 
+Windsor Regional Hospital (Ouellette Campus), Windsor, ON Sept. 2017 - Aug. 2018 
 
-- Software: Proficient in Rhino, Revit, SketchUp, ArcGIS, Adobe Creative Cloud, Ms Office, Google Suite 
-
-- Language: Fluent in English and Mandarin 
+- Transported discharged patients by wheelchair to waiting transportation 
 

@@ -1,74 +1,58 @@
 [name removed] 
 
-[removed], [removed] 
+[removed][removed] [removed] 
 
-SUMMARY OF QUALIFICATIONS 
-
-- Experience with Microsoft Access database management and reporting; working knowledge of Esawin, MATLAB and SPSS 
-
-- Strong analytical and scientific reasoning skills acquired through academic distinction 
-
-- Practical experience working in a physics laboratory, including using measurement tools, lab equipment, and following safety procedures 
-
-- Communication, time management, and organizational skills developed through balancing employment and volunteer experience while maintaining a strong academic average 
-
-- Valid G2 Driver’s License with a reliable vehicle 
+portfolio [removed] 
 
 EDUCATION 
 
-Honors B.S. Physics, Medical Physics Co-op 
+Massachusetts Institute of Technology 
 
-Sept. 2019 - Present 
+Candidate for B.S. Architecture, GPA 4.5/5.0 
 
-University of Windsor, Windsor, ON 
+Cambridge, MA June 20XX 
 
-- Dean’s Honor Roll (GPA 3.80) 
+SKILLS 
 
-- Member of Golden Key International Honor Society 
+SOFTWARE 
 
-PROFESSIONAL EXPERIENCE 
+Rhino 3D Studio Max Design D3 Autodesk Maya Unity HTML/CSS AutoCAD Vuforia SDK Bootstrap Autodesk Revit & 3d Processing Grasshopper DESIGN & BUILDING Game design Graphic design Illustration Photography Lasercutting Sketching LANGUAGES Mandarin (fluent) Spanish (intermediate) 
 
-Clinic Administrative Assistant 
+Adobe Creative Suite Python Traditional fine art Wood-working & shop tools 
 
-May 2019 - Present 
+RELEVANT PROJECT EXPERIENCE 
 
-Windsor Medical Clinic, Windsor, ON 
+Back Bay Children’s Mediathèque 
 
-- Introduced a more efficient filing system that reduced the staff file retrieval time by 20% 
+February - May 20XX 
 
-- Maintain patient databases and create reports using MS Access and Excel 
+_Skills: Rhino3D, Grasshopper for Rhino3D, VRay, Adobe Illustrator, Adobe Photoshop_ Conceptualized a children’s mediathèque based on field conditions across time 
 
-- Provide administrative support to a team of healthcare professionals 
+Collected real-time traffic data around the site in Back Bay and created data visualization rhythmic drawings Explored unit design and aggregation systems to create a cohesive architectural project 
 
-- Maintain detailed records, coordinate meetings, process invoices, and liaise with vendors 
+Summer Street Fitness Center 
 
-Laboratory Assistant 
+September - December 20XX 
 
-University of Windsor, Windsor, ON 
+_Skills: Rhino3D, Adobe Illustrator, Adobe Photoshop_ 
 
-Oct. 2019 - Mar. 2020 
+Conceptualized a fitness center to direct viewpoints towards programs of interest 
 
-- Explored the growing development in laser-induced breakdown spectroscopy 
+Experimented with relationship of carving and packing programs to direct focus towards the space’[removed]using HTML/CSS with Bootstrap 
 
-- Investigated new techniques for the preparation of bacterial placement surfaces 
+Created data visualizations in D3; conceptualized plan to exhibit Studio Care Cards on an Arlington grocery store 
 
-- Assisted in experimental alignment and data collection 
+Architecture Firm June 20XX - May 20XX 
 
-- Analyzed and compared spectral intensities using various software packages 
+Design Intern 
 
-VOLUNTEERING & LEADERSHIP 
+Iterated designs, built prototypes of the Collier Memorial with. [name removed] for Rhino3D to engineer the vaults and shape the masonry for structural stability on the MIT campus 
 
-Vice President 
+Conducted geometry studies, with paper and with Rhino3D, for the Lawn on D swing installation in Boston 
 
-Dec. 2019 - Present 
+LEADERSHIP + AWARDS 
 
-University of Windsor Physics Club, Windsor, ON 
+MIT Dramashop (20XX-20XX Publicity Director, 20XX Fall One Acts producer, 20XX-20XX Secretary), MIT Asian Dance Team, Undergraduate Practice Opportunities Program (UPOP) 
 
-- Delivered engaging and interactive presentations to high school physics classes, resulting in positive feedback and invitations for additional sessions. Organized club meetings and events. 
-
-Medical Volunteer 
-
-Windsor Regional Hospital (Ouellette Campus), Windsor, ON Sept. 2017 - Aug. 2018 
-
-- Transported discharged patients by wheelchair to waiting transportation 
+Grand Prize in Boston-wide art competition for a 9x9 painting 
 

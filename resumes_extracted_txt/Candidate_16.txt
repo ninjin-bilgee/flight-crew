@@ -1,62 +1,76 @@
 [name removed] 
 
-Berkeley, CA | [removed] | [removed]  | [removed] | [removed] 
+[removed] ● Athens, GA 30602 ● [removed] ● [removed] 
 
-Education 
+EDUCATION 
 
-University of California, Berkeley May 2026 Bachelor of Arts in Data Science GPA: ___/4.0 (optional) 
+University of Georgia , Honors Program Athens, GA _Bachelor of Arts, Political Science_ | School of Public & International Affairs May 2023 _Bachelor of Arts, Spanish_ | Franklin College of Arts & Sciences GPA: 3.73/4.00 
 
-Relevant Coursework: Data Structures & Algorithms, Modern Statistical Prediction & Machine Learning, Principles & Techniques of Data Science, Data, Inference, & Decisions, and Human Contexts & Ethics of Data 
+Certificate in Personal and Organizational Leadership 
 
-Skills 
+August 2022 - Present 
 
-Languages: SQL, Python, R, Java Databases: MySQL, SQLite 
+- Participant in highly selective year-long leadership development program of academic courses, personal assessments, experiential learning, team building, and community service 
 
-Machine Learning: Scikit-learn, SAS 
+Study Abroad: Oxford University | Oxford, England 
 
-Tools: Pandas, Matplotlib, Tableau, Excel, BeautifulSoup 
+August 2021 - December 2021 
 
-Highlighted Experience and Projects 
+- Earned 6 credit hours taught by Oxford faculty using a unique tutorial method 
 
-- Data Analyst Intern, ABC Company, San Francisco, CA Summer 2025 ● Analyzed user engagement data using SQL and Python (Pandas, Matplotlib) to identify trends in app usage, providing insights that supported a 15% increase in user acquisition for high-value user segments 
+RELEVANT COURSEWORK 
 
-   - Developed and implemented data cleaning procedures (Python) for a customer satisfaction survey dataset, leading to a 10% reduction in data processing time for future surveys 
+Leadership and Personal Development, Personal Career Management and Service Learning, Organizational Leadership, Business Spanish, International Organization 
 
-   - Collaborated with software engineers to understand data storage structures and API functionalities, ensuring accurate data retrieval for analysis 
+INTERNSHIP EXPERIENCE 
 
-Datathon Project: Predicting Customer Churn for XYZ Company Spring 2025 
+Benton, Getchell & Grayson, LLC , _Virtual Law Intern_ | Remote 
 
-   - Led a team of 4 in the exploration of customer data, uncovering key trends and patterns related to churn 
+August 2021 - Present 
 
-   - Guided team in selecting machine learning algorithms using Scikit-learn for churn prediction; oversaw model training, evaluation, and hyperparameter tuning to optimize performance 
+   - Contribute to daily operations of workers’ compensation and general liability law firm representing employers and insurers through online platforms, including Slack and Zoom 
 
-   - Prepared and delivered a final presentation to datathon judges, highlighting key findings and model performance (78% accuracy on unseen test data) 
+   - Draft motions and participate in depositions, mediations, and trial preparation 
 
-- Project: Fantasy Football Modeling, Course: Data and Decisions Fall 2024 
+- Update correspondence of clients, opposing counsel, and physicians with case information 
 
-   - Aggregated and prepped 5 years of NFL fantasy football projection data from 6 independent sources into a MySQL database 
+- The Population Institute , _Intern_ | Washington, D.C. June 2020 - August 2020 
 
-   - Built a random forest model in SAS that improved projection accuracy by combining the disparate sources into one projection that outperformed the mean absolute error of the next best projection by 18% 
+   - Created and negotiated student scholarship program that served 15 students per year 
 
-Project: Production Control, Course:  System and Analysis Design Spring 2024 
+   - Managed relations for World Population Day Symposium with international press and NGOs 
 
-- Led a team of five students in designing, coding, and implementing a SQL database 
+   - Wrote 4 grant proposals and improved the effectiveness of direct mailing fundraising 
 
-- Entered and updated information using the web scraping tool BeautifulSoup 
+   - Advocated with Congress and NGOs for issue awareness in legislative decisions 
 
-- Completed analysis and designed documentation with data flow diagrams, structural charts, process specifications, a data dictionary, and a user manual 
+LEADERSHIP EXPERIENCE 
 
-Leadership and Extracurricular Activities 
+UGA Department of University Housing , _Resident Assistant_ | Athens, GA 
 
-Data Structures Undergraduate Student Instructor , UC Berkeley EECS Dept Sept. 2024 - May 2025 
+August 2021 - Present 
 
-- Supported biweekly sections of 100+ students to help reinforce core data structures concepts (e.g. asymptotics, linked lists, trees, searching/sorting algorithms, etc.) 
+   - Design, implement, and evaluate educational programs for up to 100 participants, including an Effective Leadership workshop series 
 
-- Shaped course curriculum by developing relevant enrichment problems to help students master concepts 
+   - Utilize communication and counseling skills to supervise 65 students in a residence hall 
 
-CS Educator / Events Committee Member , Berkeley ANova Sept. 2023 - May 2024 
+   - Quickly respond to crises and enforce university housing policies 
 
-- Improved computer science education in under-resourced communities across the Bay Area 
+- Compile annual facility inventory and year-end report for the Housing Executive Board 
 
-- Taught a weekly project-based after-school program at Bay Area middle schools 
+- YMCA Camp Harbor , _Head Counselor_ | Gainesville, GA May 2019 - July 2019 
+
+   - Selected by supervisor to interview, hire, and train 36 counselors 
+
+   - Developed an innovative leadership training curriculum for new staff onboarding 
+
+   - Taught leadership lessons to groups of 5-15 campers, ages 7-10 
+
+   - Designed comprehensive camp schedule for daily activities involving 300+ campers 
+
+ADDITIONAL WORK EXPERIENCE 
+
+UGA Honors Program , _Student Assistant_ | Athens, GA September 2019 – Present [name removed] , _Desk Assistant_ | Athens, GA August 2020 - May 2021 Dillard’s , _Sales Associate_ | Alpharetta, GA May 2018 - August 2019 HONORS & AWARDS HOPE Scholarship Recipient August 2019 - Present Dean’s List 5 semesters Governor’s Scholarship August 2019 - May 2020 UGA Rotary Top 12 Award Winner February 2020 
+
+HONORS & AWARDS 
 

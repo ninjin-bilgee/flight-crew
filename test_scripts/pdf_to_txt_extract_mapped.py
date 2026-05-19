@@ -7,6 +7,7 @@ import json
 import sys
 import shutil
 import tempfile
+import fire
 
 nlp = spacy.load("en_core_web_trf")
 
@@ -14,18 +15,15 @@ def get_file_hash(file_bytes):
     return hashlib.sha256(file_bytes).hexdigest()
 
 def anonymize(text):
-    # Strip markdown syntax so spaCy sees plain text — ## and ** around the name
+    # Strip markdown syntax from raw extraction so spaCy sees plain text — ## and ** around the name
     # cause the transformer to treat it as a section header instead of a person
     text = re.sub(r'^#+\s*', '', text, flags=re.MULTILINE)
     text = re.sub(r'\*+', '', text)
 
-    # Header name: resumes always lead with the candidate name, but spaCy needs
-    # surrounding prose context to detect isolated headers reliably. Match 2–4
-    # capitalized/all-caps words at the start of the first matching line. Using a
-    # lookahead instead of $ so it also catches names sharing a line with contact info
-    # (e.g. "Erica Engineer, E.I.T.  email • phone"). Without this, the regex would
-    # skip that line and wrongly match the first section header instead (e.g.
-    # "SUMMARY OF QUALIFICATIONS").
+    # Header name: resumes always lead with the candidate name
+    # but spaCy needs surrounding prose context to detect isolated headers reliably. 
+    # Catches names sharing a line with contact info (e.g. "Erica Engineer, E.I.T.  email • phone")
+    # Without this, the regex would skip that line and wrongly match the first section header instead (e.g. "SUMMARY OF QUALIFICATIONS")
     text = re.sub(
         r'^([A-Z][A-Za-z\'\-\.]+(?:[ ]+[A-Z][A-Za-z\'\-\.]+){1,3})(?=[,\s]|$)',
         '[name removed]',
@@ -44,7 +42,6 @@ def anonymize(text):
     text = re.sub(r'\b([A-Z]\s){2,}[A-Z]\b', '[name removed]', text)
 
     # Email — must run before the social-handle regex so @domain isn't consumed
-    # first, leaving the username (e.g. "hayden") exposed in "hayden[removed].edu"
     text = re.sub(r'[\w\.\+\-]+@[\w\.\-]+\.\w+', '[removed]', text)
 
     # Social handle (bare @handle, emails already gone)
@@ -53,7 +50,7 @@ def anonymize(text):
     # Street address
     text = re.sub(r'\d+\s+[\w\s]+(?:Street|St|Avenue|Ave|Drive|Dr|Road|Rd|Blvd|Lane|Ln|Way|Court|Ct)[\w\s,\.]*\d{5}(?:-\d{4})?', '[removed]', text, flags=re.IGNORECASE)
 
-    # Phone — US (DDD-DDD-DDDD), with optional +1 country code, and short
+    # Phone - US (DDD-DDD-DDDD), with optional +1 country code, and short
     # template placeholders like 1-234-5678. A second pass mops up any DDD-DDD-
     # prefix left behind by a prior partial match.
     text = re.sub(r'(?:\+?1[\s.\-])?\(?\d{3}\)?[\s.\-]\d{3}[\s.\-]\d{4}', '[removed]', text)
@@ -76,10 +73,12 @@ def anonymize(text):
 
     return text
 
+# Core processing function that can be called by both run() and run_all()
 def process_resumes(pdf_paths):
     map_output_path = "candidate_map.json"
     os.makedirs('resumes_extracted_txt', exist_ok=True)
 
+    # Use a temporary directory to stage files for processing, ensuring cleanup even if errors occur
     tmp_dir_obj = tempfile.TemporaryDirectory()
     try:
         tmp_dir = tmp_dir_obj.name
@@ -145,11 +144,21 @@ def process_resumes(pdf_paths):
         json.dump(candidate_map, f, indent=2)
     print("Candidate map saved to candidate_map.json")
 
-if __name__ == "__main__":
-    # Accept file paths as CLI args:
-    # python test_scripts/pdf_to_txt_extract_mapped.py resumes_pdf/sample_resume_18.pdf resumes_pdf/sample_resume_19.pdf...
-    pdf_paths = sys.argv[1:]
+# Process specific PDF files
+def run(*pdf_paths):
+    process_resumes(list(pdf_paths))
+
+# Process specific PDF files
+def run_all(folder="resumes_pdf"):
+    pdf_paths = sorted(
+        os.path.join(folder, f) for f in os.listdir(folder) if f.endswith(".pdf")
+    )
     if not pdf_paths:
-        print("Please provide PDF file paths as arguments.")
-        sys.exit(1)
+        print(f"No PDFs found in {folder}/")
+        return
     process_resumes(pdf_paths)
+
+# Command-line interface using fire
+if __name__ == "__main__":
+    fire.Fire({"run": run, "run_all": run_all})
+

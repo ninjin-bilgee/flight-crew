@@ -1,74 +1,54 @@
-[name removed] 
+[name removed], E.I.T. [removed] • [removed] • [removed] 
 
-[removed] | [removed] | [removed] 
+SUMMARY OF QUALIFICATIONS 
+
+- Experienced in designing solutions that require integration of environmental and human health constraints compatible with economic growth and sustainable development 
+
+- Skilled in a variety of modeling and drafting software, including AutoCAD and ALGOR 
+
+- Efficient at utilizing project management and teamwork skills to promote overarching goals 
 
 EDUCATION 
 
-University of California Berkeley | GPA: 3.5/4.0 
+University of Georgia Athens, GA _Bachelor of Science, Environmental Engineering_ May 2024 Engineer in Training (E.I.T.), State of Georgia, 2022 Cumulative GPA: 3.75/4.00 Passed Fundamentals of Engineering Exam, 2022 
 
-May 20XX 
+RELEVANT COURSEWORK 
 
-- BS in Business Administration, Walter A. Haas School of Business 
+Engineering Hydrology and Hydraulics | Sustainable Building Design | Energy and Environmental Policy Analysis | GIS for Urban Engineering, Planning, and Development | Environmental Justice: Evidence and Impact 
 
-- Honors & Awards: Leadership Award Scholar (top x% of students); ABC Case Competition Finalist (5/21) 
+SKILLS 
 
-LEADERSHIP EXPERIENCE 
+Technical : AutoCAD, AutoCAD LT, Inventor, SAP2000, ArcGIS, Solidworks 
 
-Name of Student Organization 
+Professional : Project management methodologies, Technical writing, Oral/Visual Presenatation, Laboratory Procedures 
 
-_Co-Founder & President_ 
+RELEVANT PROJECT EXPERIENCE 
 
-Berkeley, CA _September 20XX-present_ 
+Group Project , _Environmental Engineering Design Methodology_ 
 
-- Manage 8 board members by hosting weekly meetings, delegating tasks, reviewing updates, implementing a system for anonymous feedback, and conducting bi-weekly checkup calls to ensure smooth operations 
+January 2023 – March 2023 
 
-- Maintain accurate financial records and raised over $2,000 through fundraising activities and pitching to club sponsors 
+- Develop 3-5 bullet points using the following formula: 1 bullet point = task + skill + quantity + result/purpose 
 
-- Grow organization to over 50 members in one year through networking & outreach, tabling, and strategic social media marketing 
+- Ex. Joined a 5-person team to analyze existing ecosystems and conduct environmental tests using ArcGIS for presentation to organizational leadership to inform future building plans 
 
-- Partner with 3 California high schools to promote financial literacy beyond UC Berkeley, educating over 100 students 
+RELEVANT WORK EXPERIENCE 
 
-Name of Student Government 
+|ABC Pollution Control|ABC Pollution Control|Miami, FL|
+|---|---|---|
+|_Environmental Engineering Intern_||June 2022 – August 2022|
+|•|Develop 3-5 bullet points using the following formula: 1 bullet point = task + skill + quantity + result/purpose||
+|•|Make sure that your most recent experience is at the top of each section, working backwards from there||
+|Golob|& Legion Engineers|Athens, GA|
+|_Intern_||May 2021 – August 2021|
 
-_VP of Internal Affairs_ 
 
-Berkeley, CA _September 20XX-present_ 
 
-- Lead a cohort of 250+ undergraduates and hosted events integrating the student body and promoting community-building 
+- Start each bullet point with an action verb, and make sure they are present tense for present experiences, and past tense for past experiences 
 
-- Collaborate with vice presidents and leaders to organize 11 social and educational events attended by 250+ 
+INVOLVEMENT EXPERIENCE 
 
-- Contribute creative ideas to weekly committee meetings, directly leading to the planning and execution of 2 new events 
+The National Association of Environmental Professionals | Athens, GA January 2022 – Present 
 
-Name of start up 
-
-_Business Owner_ 
-
-Remote 
-
-_April 20XX-August 20XX_ 
-
-- Developed and led a team of 3, effectively delegating tasks, resolving problems, and providing timely constructive feedback and guidance 
-
-- Revised and improved the business plan upon reaching a sales plateau, leading to a sales growth of 80% over 3 months 
-
-- Negotiated with 8 intemational suppliers to reduce manufacturing costs, improving profit margins by an average of 17% 
-
-Name of organization 
-
-_Intern_ 
-
-Berkeley, CA _August 20XX-May 20XX_ 
-
-- Managed 100+ case assignments for five interns and provided feedback on their correspondence with incarcerated individuals about transferring to UC campuses 
-
-- Initiated the compilation and dissemination of scholarships, parole support, and educational resources for incarcerated students, addressing critical gaps to help reverse the school-to-prison pipeline 
-
-SKILLS & INTERESTS 
-
-Skills: R/RStudio, SCC Modeling, Financial Analysis, Microsoft Office Suite and Google Drive Suite, Adobe InDesign 
-
-Languages: Chinese/Mandarin (native), Spanish (beginner) 
-
-Interests: Lakers fan since '08, Volleyball, Acappella, Traveling, ASL, Dogs! 
+• Try to focus on how each involvement experience will make you a better engineer, and talk about what you did, not what the organization is about The Society of Environmental Engineers, UGA | Athens, GA August 2021 – Present • Attend weekly meetings to focus on strengthening skill sets and developing as a professional UGA Tennis Team, _Co-Captain_ | Athens, GA August 2020 – May 2023 • Provided leadership for 8 younger athletes related to team motivation, encouragement, and success • Maintain 10 hours of training per week in addition to full course load and travel for weekend events Sigma Pi Kappa, UGA | Athens, GA December 2021 – December 2022 
 

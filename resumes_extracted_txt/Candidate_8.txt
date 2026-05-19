@@ -1,76 +1,62 @@
 [name removed] 
 
-[removed] | [removed] | [removed] 
+Berkeley, CA | [removed] | [removed]  | [removed] | [removed] 
 
-PROFESSIONAL SUMMARY 
+Education 
 
-Motivated Audio Engineer with solid recording, editing, and mixing experience. Effective communicator and team player with exceptional organizational, project, and time management abilities. Constantly researching new audio technologies and processes to ensure premium services. 
+University of California, Berkeley May 2026 Bachelor of Arts in Data Science GPA: ___/4.0 (optional) 
 
-EDUCATION 
+Relevant Coursework: Data Structures & Algorithms, Modern Statistical Prediction & Machine Learning, Principles & Techniques of Data Science, Data, Inference, & Decisions, and Human Contexts & Ethics of Data 
 
-Bachelor of Fine Arts in Music Oregon State University, Corvallis, OR 
+Skills 
 
-June 2019 3.62 GPA 
+Languages: SQL, Python, R, Java Databases: MySQL, SQLite 
 
-RELEVANT COURSEWORK 
+Machine Learning: Scikit-learn, SAS 
 
-Midi Systems and Applications; Sound Synthesis; Audio Technologies; Introduction to Digital Audio; Musical Technology; Studio & Multi-Camera Production; Technical & Creative Writing 
+Tools: Pandas, Matplotlib, Tableau, Excel, BeautifulSoup 
 
-RELEVANT EXPERIENCE 
+Highlighted Experience and Projects 
 
-Clint Williams Recordings (Self-employed) , Corvallis, OR 
+- Data Analyst Intern, ABC Company, San Francisco, CA Summer 2025 ● Analyzed user engagement data using SQL and Python (Pandas, Matplotlib) to identify trends in app usage, providing insights that supported a 15% increase in user acquisition for high-value user segments 
 
-Sept. 2016 – Present 
+   - Developed and implemented data cleaning procedures (Python) for a customer satisfaction survey dataset, leading to a 10% reduction in data processing time for future surveys 
 
-_Freelance Audio Engineer_ 
+   - Collaborated with software engineers to understand data storage structures and API functionalities, ensuring accurate data retrieval for analysis 
 
-- Record sounds in-studio and on locations to obtain necessary tracks 
+Datathon Project: Predicting Customer Churn for XYZ Company Spring 2025 
 
-- Keep all equipment in good working order to maximize sound quality 
+   - Led a team of 4 in the exploration of customer data, uncovering key trends and patterns related to churn 
 
-- Set up equipment onsite, including microphones and recording devices 
+   - Guided team in selecting machine learning algorithms using Scikit-learn for churn prediction; oversaw model training, evaluation, and hyperparameter tuning to optimize performance 
 
-- Collaborate with clients to determine project scopes and set milestones 
+   - Prepared and delivered a final presentation to datathon judges, highlighting key findings and model performance (78% accuracy on unseen test data) 
 
-- Utilize specialized software to mix and edit sound tracks 
+- Project: Fantasy Football Modeling, Course: Data and Decisions Fall 2024 
 
-- Deliver final audio files to customers and make adjustments as needed 
+   - Aggregated and prepped 5 years of NFL fantasy football projection data from 6 independent sources into a MySQL database 
 
-KBVR 88.7 FM Radio Station , Corvallis, OR 
+   - Built a random forest model in SAS that improved projection accuracy by combining the disparate sources into one projection that outperformed the mean absolute error of the next best projection by 18% 
 
-Dec. 2017 – Mar. 2019 
+Project: Production Control, Course:  System and Analysis Design Spring 2024 
 
-_Radio Co-Host_ 
+- Led a team of five students in designing, coding, and implementing a SQL database 
 
-- Served as weekend disk jockey 
+- Entered and updated information using the web scraping tool BeautifulSoup 
 
-- Researched stories for radio segments 
+- Completed analysis and designed documentation with data flow diagrams, structural charts, process specifications, a data dictionary, and a user manual 
 
-- Created radio contests to increase audience engagement 
+Leadership and Extracurricular Activities 
 
-- • Conducted live interviews with performers and callers 
+Data Structures Undergraduate Student Instructor , UC Berkeley EECS Dept Sept. 2024 - May 2025 
 
-Arizma Studios , Corvallis, OR 
+- Supported biweekly sections of 100+ students to help reinforce core data structures concepts (e.g. asymptotics, linked lists, trees, searching/sorting algorithms, etc.) 
 
-Sept. 2016 – Dec. 2017 
+- Shaped course curriculum by developing relevant enrichment problems to help students master concepts 
 
-_Assistant Engineer_ 
+CS Educator / Events Committee Member , Berkeley ANova Sept. 2023 - May 2024 
 
-- Adjusted sound quality to meet product standards 
+- Improved computer science education in under-resourced communities across the Bay Area 
 
-- Followed up with customers regarding project changes and updates 
-
-- Tested, calibrated, and repaired equipment 
-
-SKILLS 
-
-- Meticulous in sound quality 
-
-- Skilled in critical music analysis 
-
-- High proficiency with acoustic and electronic equipment 
-
-- Able to work effectively in a fast-paced environment 
-
-- Excellent knowledge of music production, audio and music technology, and sound engineering 
+- Taught a weekly project-based after-school program at Bay Area middle schools 
 
