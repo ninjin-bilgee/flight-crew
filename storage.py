@@ -4,7 +4,13 @@ import os    # lets us check if a file exists on the computer
 
 RESULTS_FILE = "results.json"  # the name of the file where we save all candidate results
 
-def save_candidate(candidate_id, filename, score, skills=[]):
+def save_candidate(
+    candidate_id,
+    filename,
+    score,
+    skills=[],
+    embedding=[]
+):
     # this function saves one candidate's info into the JSON file
     
     if os.path.exists(RESULTS_FILE):  # check if the results file already exists
@@ -16,7 +22,8 @@ def save_candidate(candidate_id, filename, score, skills=[]):
     data[candidate_id] = {  # add this candidate to the data using their ID as the key
         "filename": filename,  # the name of their resume file
         "score": score,        # their similarity score (0 to 1)
-        "skills": skills       # list of their skills
+        "skills": skills,       # list of their skills
+        "embedding": embedding
     }
 
     with open(RESULTS_FILE, "w") as f:  # open the file to write/save
