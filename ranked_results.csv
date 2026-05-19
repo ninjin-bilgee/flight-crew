@@ -1,0 +1,6 @@
+candidate_id,filename,score,skills
+Candidate_3,sample_resume_3.pdf,0.91,"Python, Machine Learning"
+Candidate_1,sample_resume_1.pdf,0.85,"Python, SQL"
+Candidate_2,sample_resume_2.pdf,0.62,"Java, Excel"
+939edbb5,rb.pdf,0.0,"python, fastapi"
+a4f758af,rb.pdf,0.0,"python, fastapi"

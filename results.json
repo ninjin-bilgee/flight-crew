@@ -1,0 +1,42 @@
+{
+  "Candidate_1": {
+    "filename": "sample_resume_1.pdf",
+    "score": 0.85,
+    "skills": [
+      "Python",
+      "SQL"
+    ]
+  },
+  "Candidate_2": {
+    "filename": "sample_resume_2.pdf",
+    "score": 0.62,
+    "skills": [
+      "Java",
+      "Excel"
+    ]
+  },
+  "Candidate_3": {
+    "filename": "sample_resume_3.pdf",
+    "score": 0.91,
+    "skills": [
+      "Python",
+      "Machine Learning"
+    ]
+  },
+  "939edbb5": {
+    "filename": "rb.pdf",
+    "score": 0.0,
+    "skills": [
+      "python",
+      "fastapi"
+    ]
+  },
+  "a4f758af": {
+    "filename": "rb.pdf",
+    "score": 0.0,
+    "skills": [
+      "python",
+      "fastapi"
+    ]
+  }
+}
