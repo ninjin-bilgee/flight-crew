@@ -1,0 +1,78 @@
+{
+  "Candidate_1": {
+    "filename": "sample_resume_3.pdf",
+    "hash": "80907bdc769fbfaf19570f5e7ba4b97071d96237d9338b557d49ffa74a40bbc2"
+  },
+  "Candidate_2": {
+    "filename": "sample_resume_2.pdf",
+    "hash": "0ec39fba85b7787443cfa21a13c6a622efa7ff4951b88eb297b40b3fa1e4d75e"
+  },
+  "Candidate_3": {
+    "filename": "sample_resume_1.pdf",
+    "hash": "699105b531b9a1a1e5203491507e515f0f34808210a6a9009c9b73a9182efe7d"
+  },
+  "Candidate_4": {
+    "filename": "sample_resume_19.pdf",
+    "hash": "913b2d8e68ee00b7eaaff37f35d29e0f5ba424fe3e3acf0548af5421ce35f219"
+  },
+  "Candidate_5": {
+    "filename": "sample_resume_5.pdf",
+    "hash": "443d1a506c78846547a70f15ef0b10eb3d631b707dd6fecdf1e645e2e8acf293"
+  },
+  "Candidate_6": {
+    "filename": "sample_resume_4.pdf",
+    "hash": "070b5eccd453b7893d280d95fb949aa5a47656c3cbb5c1b3bf9bd32653e16ef0"
+  },
+  "Candidate_7": {
+    "filename": "sample_resume_18.pdf",
+    "hash": "b2c4cfae0e44c1a2f2916271db1999d35b3b6293f0fe735c86cc385c4f81b5f5"
+  },
+  "Candidate_8": {
+    "filename": "sample_resume_6.pdf",
+    "hash": "e4563a93d5a069ede8836de9dc0f70e5d13153efe9e3f19bb8389adb4320ba7d"
+  },
+  "Candidate_9": {
+    "filename": "sample_resume_7.pdf",
+    "hash": "ce8fafa96d3b635e0dccc5b8e01cd0916c6494c0c32a4d7cdced4c3856e67420"
+  },
+  "Candidate_10": {
+    "filename": "sample_resume_16.pdf",
+    "hash": "fe209b8db26d66c3d88a7737b9514e4a9a2929500c59ea12c55fd74d66308150"
+  },
+  "Candidate_11": {
+    "filename": "sample_resume_17.pdf",
+    "hash": "440f9180f2451f49256ed3e60d4cecb591794d72280b1bd83f594c8757367201"
+  },
+  "Candidate_12": {
+    "filename": "sample_resume_15.pdf",
+    "hash": "9b05d1b84771fd7416d7d09748c796d375038e77122cbfca238408af9434a376"
+  },
+  "Candidate_13": {
+    "filename": "sample_resume_9.pdf",
+    "hash": "138485ab3d841c28e15b47d4bba275606ffd120601a3299f3e3627611029fb04"
+  },
+  "Candidate_14": {
+    "filename": "sample_resume_8.pdf",
+    "hash": "e3b1181d29dfad815df493a2a12122ffe3cbc7a7bf248356114219eda8351c0c"
+  },
+  "Candidate_15": {
+    "filename": "sample_resume_14.pdf",
+    "hash": "f3afd36d4c18de503cc10510da24930c7dd33022ce2de201d7ba2ccf3797a1b0"
+  },
+  "Candidate_16": {
+    "filename": "sample_resume_10.pdf",
+    "hash": "b162488f105228cda1167a08e526873c68e65a33a7a5b14ea13e77d258b23ad0"
+  },
+  "Candidate_17": {
+    "filename": "sample_resume_11.pdf",
+    "hash": "31c2d6baacf8caf80cabf799ccc6adf2d1ec3349c49e91c2de2a196602c5eff6"
+  },
+  "Candidate_18": {
+    "filename": "sample_resume_13.pdf",
+    "hash": "8ea2f9e2dcdc28d0562fa542c5dbd4c21fd61da432e87fdbb1dc1e4e247425c2"
+  },
+  "Candidate_19": {
+    "filename": "sample_resume_12.pdf",
+    "hash": "e2f9e2e791a842903d68f8a08304b19e95335dc212980ebb03811abd33bbe65f"
+  }
+}
