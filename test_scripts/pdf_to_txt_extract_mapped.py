@@ -3,13 +3,25 @@ import re
 import pymupdf4llm
 import os
 import hashlib
-import json
 import sys
 import shutil
 import tempfile
 import fire
+import sqlite3
 
 nlp = spacy.load("en_core_web_trf")
+
+# Set up SQLite database for candidate mapping
+conn = sqlite3.connect("candidate_map.db")
+conn.execute("""
+    CREATE TABLE IF NOT EXISTS candidates (
+        candidate_id  TEXT PRIMARY KEY,
+        filename      TEXT,
+        hash          TEXT UNIQUE,
+        cleaned_text  TEXT
+    )
+""")
+conn.commit()
 
 def get_file_hash(file_bytes):
     return hashlib.sha256(file_bytes).hexdigest()
@@ -75,11 +87,11 @@ def anonymize(text):
 
 # Core processing function that can be called by both run() and run_all()
 def process_resumes(pdf_paths):
-    map_output_path = "candidate_map.json"
     os.makedirs('resumes_extracted_txt', exist_ok=True)
 
     # Use a temporary directory to stage files for processing, ensuring cleanup even if errors occur
     tmp_dir_obj = tempfile.TemporaryDirectory()
+
     try:
         tmp_dir = tmp_dir_obj.name
         print(f"Staging files in temp dir: {tmp_dir}")
@@ -88,17 +100,10 @@ def process_resumes(pdf_paths):
         for pdf_path in pdf_paths:
             filename = os.path.basename(pdf_path)
             shutil.copy(pdf_path, os.path.join(tmp_dir, filename))
-
-        # Load existing map
-        if os.path.exists(map_output_path):
-            with open(map_output_path, "r") as f:
-                candidate_map = json.load(f)
-        else:
-            candidate_map = {}
-
-        # Build reverse lookup: hash → candidate_id from previous runs
-        hash_to_id = {v["hash"]: k for k, v in candidate_map.items()}
-        id_counter = len(candidate_map) + 1
+        
+        # Get current candidate count from SQLite to continue ID numbering correctly
+        row = conn.execute("SELECT COUNT(*) FROM candidates").fetchone()
+        id_counter = row[0] + 1
 
         # Extract text from each file while temp dir is still open
         for filename in os.listdir(tmp_dir):
@@ -113,19 +118,28 @@ def process_resumes(pdf_paths):
 
             file_hash = get_file_hash(file_bytes)
 
-            if file_hash in hash_to_id:
-                print(f"Skipping {filename} — already processed as {hash_to_id[file_hash]}")
+            # Duplicate check with SQLite UNIQUE constraint on hash column
+            existing = conn.execute(
+                "SELECT candidate_id FROM candidates WHERE hash = ?",
+                (file_hash,)
+            ).fetchone()
+            if existing:
+                print(f"Skipping {filename} — already processed as {existing[0]}")
                 continue
 
             candidate_id = f"Candidate_{id_counter}"
             id_counter += 1
 
-            hash_to_id[file_hash] = candidate_id
-            candidate_map[candidate_id] = {"filename": filename, "hash": file_hash}
-
             # Extract and anonymize
             md = pymupdf4llm.to_markdown(tmp_path)
             md_clean = anonymize(md)
+
+            # Save candidate mapping to SQLite with cleaned (not raw) text
+            conn.execute(
+                "INSERT INTO candidates (candidate_id, filename, hash, cleaned_text) VALUES (?, ?, ?, ?)",
+                (candidate_id, filename, file_hash, md_clean)
+            )
+            conn.commit()
 
             # Save to output
             output_path = f"resumes_extracted_txt/{candidate_id}.txt"
@@ -138,11 +152,6 @@ def process_resumes(pdf_paths):
     finally:
         tmp_dir_obj.cleanup()
         print("Temp directory cleaned up.")
-
-    # Save candidate map
-    with open("candidate_map.json", "w") as f:
-        json.dump(candidate_map, f, indent=2)
-    print("Candidate map saved to candidate_map.json")
 
 # Process specific PDF files
 def run(*pdf_paths):
