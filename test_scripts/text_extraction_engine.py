@@ -1,5 +1,4 @@
-# Use this extraction engine for further development
-
+# Extraction Engine: PDF → Cleaned Text with Candidate Mapping
 import spacy
 import re
 import pymupdf4llm
@@ -93,7 +92,6 @@ def anonymize(text):
 
 # Core processing function that can be called by both run() and run_all()
 def process_resumes(pdf_paths):
-    # os.makedirs('resumes_extracted_txt', exist_ok=True)
 
     # Use a temporary directory to stage files for processing, ensuring cleanup even if errors occur
     tmp_dir_obj = tempfile.TemporaryDirectory()
@@ -149,13 +147,6 @@ def process_resumes(pdf_paths):
                 (candidate_id, filename, file_hash, cleaned_text)
             )
             conn.commit()
-
-            """
-            # Save to resumes_extracted_txt/ with candidate ID as filename -- FOR DEV MODE
-            output_path = f"resumes_extracted_txt/{candidate_id}.txt"
-            with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(cleaned_text)
-            """
 
             print(f"Processed {filename} → {candidate_id}")
 
