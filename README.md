@@ -3,16 +3,16 @@
 ## Resume Parser and Ranker Tool
 
 ### Dependencies and Installment Versions
-pymupdf4llm 1.27.2.3
-spacy 3.8.13
-en_core_web_trf 3.8.0
-Sentence-transformers 5.5.0
-pdfplumber 0.11.9
-torch 2.12.0
-Scikit-learn 1.8.0
-faiss-cpu 2.3.2
-fire 0.7.1
-Python 3.14.2
+- pymupdf4llm 1.27.2.3
+- spacy 3.8.13
+- en_core_web_trf 3.8.0
+- Sentence-transformers 5.5.0
+- pdfplumber 0.11.9
+- torch 2.12.0
+- Scikit-learn 1.8.0
+- faiss-cpu 2.3.2
+- fire 0.7.1
+- Python 3.14.2
 
 ### Pipeline Overview
 Text extraction into .txt format --> Text preprocessing and preparation for SBERT's semantic comparison between resumes and job descriptions --> 
