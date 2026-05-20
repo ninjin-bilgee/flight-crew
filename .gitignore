@@ -10,3 +10,6 @@ resumes_extracted_md/*.md
 # Ignore the original PDF resumes @ PROD
 # resumes_pdf/*.pdf
 
+candidate_map.db
+__pycache__/
+*.pyc
