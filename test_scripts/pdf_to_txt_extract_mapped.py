@@ -1,3 +1,5 @@
+# Use this extraction engine for further development
+
 import spacy
 import re
 import pymupdf4llm
@@ -8,6 +10,10 @@ import shutil
 import tempfile
 import fire
 import sqlite3
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from preprocessing import clean_text_for_sbert
 
 nlp = spacy.load("en_core_web_trf")
 
@@ -87,7 +93,7 @@ def anonymize(text):
 
 # Core processing function that can be called by both run() and run_all()
 def process_resumes(pdf_paths):
-    os.makedirs('resumes_extracted_txt', exist_ok=True)
+    # os.makedirs('resumes_extracted_txt', exist_ok=True)
 
     # Use a temporary directory to stage files for processing, ensuring cleanup even if errors occur
     tmp_dir_obj = tempfile.TemporaryDirectory()
@@ -134,17 +140,22 @@ def process_resumes(pdf_paths):
             md = pymupdf4llm.to_markdown(tmp_path)
             md_clean = anonymize(md)
 
+            # Further clean text for SBERT embedding (e.g. remove newlines, excessive whitespace) but keep the original cleaned markdown for storage and potential future use
+            cleaned_text = clean_text_for_sbert(md_clean)
+
             # Save candidate mapping to SQLite with cleaned (not raw) text
             conn.execute(
                 "INSERT INTO candidates (candidate_id, filename, hash, cleaned_text) VALUES (?, ?, ?, ?)",
-                (candidate_id, filename, file_hash, md_clean)
+                (candidate_id, filename, file_hash, cleaned_text)
             )
             conn.commit()
 
-            # Save to output
+            """
+            # Save to resumes_extracted_txt/ with candidate ID as filename -- FOR DEV MODE
             output_path = f"resumes_extracted_txt/{candidate_id}.txt"
             with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(md_clean)
+                f.write(cleaned_text)
+            """
 
             print(f"Processed {filename} → {candidate_id}")
 
