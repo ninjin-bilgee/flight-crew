@@ -64,8 +64,7 @@ if not row:
 jd_embedding = get_embedding(row[0])
 
 # Rank
-files = [f for f in os.listdir(RESUME_FOLDER) if os.path.isfile(os.path.join(RESUME_FOLDER, f))]
-file_count = len(files)
+file_count = len(rows)
 num_ranked = input(f'How many top candidates would you like to see? (Please enter number 1-{file_count}) \n')
 
 if(not num_ranked.isdigit()):
@@ -78,7 +77,7 @@ elif(int(num_ranked) < 1):
     print("Input too small, displaying all ranks")
     num_ranked = file_count
 
-results = rank_resumes(jd_text, k=int(num_ranked))
+results = ranker.search(jd_embedding, k=int(num_ranked))
 
 print("\n=== RANKING RESULTS ===")
 for r in results:
