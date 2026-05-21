@@ -13,3 +13,5 @@ resumes_extracted_md/*.md
 candidate_map.db
 __pycache__/
 *.pyc
+candidate_map.db
+data/embeddings/
