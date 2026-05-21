@@ -7,7 +7,6 @@ import hashlib
 import sys
 import shutil
 import tempfile
-import fire
 import sqlite3
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -178,22 +177,4 @@ def extract_jd(pdf_path):
     conn.commit()
     print(f"Job description processed → {jd_id}")
     return jd_id
-
-# Process specific PDF files
-def run(*pdf_paths):
-    process_resumes(list(pdf_paths))
-
-# Process specific PDF files
-def run_all(folder="resumes_pdf"):
-    pdf_paths = sorted(
-        os.path.join(folder, f) for f in os.listdir(folder) if f.endswith(".pdf")
-    )
-    if not pdf_paths:
-        print(f"No PDFs found in {folder}/")
-        return
-    process_resumes(pdf_paths)
-
-# Command-line interface using fire
-if __name__ == "__main__":
-    fire.Fire({"run": run, "run_all": run_all})
 
