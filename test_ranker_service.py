@@ -1,6 +1,7 @@
 # test_ranker_service_real_pdfs.py
 from ranker_service import build_index_from_folder, init_ranker, rank_resumes
 import pdfplumber
+import os
 
 RESUME_FOLDER = "test_pdfs/resume/"
 JD_PDF_PATH = "test_pdfs/jd/job_description.pdf"
@@ -21,7 +22,21 @@ def extract_text_from_pdf(pdf_path):
 jd_text = extract_text_from_pdf(JD_PDF_PATH)
 
 # 4. Rank
-results = rank_resumes(jd_text, k=5)
+files = [f for f in os.listdir(RESUME_FOLDER) if os.path.isfile(os.path.join(RESUME_FOLDER, f))]
+file_count = len(files)
+num_ranked = input(f'How many top candidates would you like to see? (Please enter number 1-{file_count}) \n')
+
+if(not num_ranked.isdigit()):
+    print("Invalid input, displaying all ranks")
+    num_ranked = file_count
+if(int(num_ranked) > file_count):
+    print("Input too big, displaying all ranks")
+    num_ranked = file_count
+elif(int(num_ranked) < 1):
+    print("Input too small, displaying all ranks")
+    num_ranked = file_count
+
+results = rank_resumes(jd_text, k=int(num_ranked))
 
 for r in results:
     print(f"Rank {r['rank']}: {r['filename']} - Score: {r['similarity_score']:.4f}")
