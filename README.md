@@ -26,15 +26,24 @@ python test_scripts/pdf_to_txt_extract_mapped.py run resume1.pdf resume2.pdf
 **Test full pipeline (in full-test branch):**
 python test_pipeline_1.py
 
+### Storage (`candidate_map.db`)
+File-based SQLite database with two tables:
+- `candidates` — stores candidate_id, filename, hash, cleaned_text
+- `job_descriptions` — stores jd_id, filename, cleaned_text
+- Hash-based duplicate detection — reprocessing the same file is automatically skipped
+- Delete `candidate_map.db` and `data/embeddings/` to reset between sessions
+
 ### Functions
-#### Extraction
+#### Extraction (`test_scripts/text_extraction_engine.py`)
 - `anonymize()` - censors PII like name, location, email, social handles, phone number, and websites
 - `process_resumes()` - core processing function called by CLI commands; uses temporary directory to stage files for processing; stores censored files in an in-memory SQLite DB that will delete itself after session finishes
-**CLI Commands**
-- run(): processes specific PDF files (cherry-picking concept)
-- run_all: processes multiple PDF files in a folder path (processes all files in a named folder)
 
-#### Preprocessing
+#### CLI (`cli.py`)
+- `upload_resume` — processes a single resume PDF
+- `upload_resumes` — processes all resume PDFs in a folder
+- `upload_jd` — processes a job description PDF
+
+#### Preprocessing (`preprocessing.py`)
 - `clean_text_for_sbert()` - lowercases text, removes leftover PII placeholders, normalizes whitespace and special characters for SBERT input
 - `process_resume()` - loads a txt file and runs it through the cleaning pipeline
 
