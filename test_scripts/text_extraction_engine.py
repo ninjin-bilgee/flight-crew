@@ -12,8 +12,7 @@ import sqlite3
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# !!! Implemented in test branch 
-# from preprocessing import clean_text_for_sbert
+from preprocessing import clean_text_for_sbert
 
 nlp = spacy.load("en_core_web_trf")
 
@@ -146,15 +145,13 @@ def process_resumes(pdf_paths):
             md = pymupdf4llm.to_markdown(tmp_path)
             md_clean = anonymize(md)
 
-            # !!! Implemented in test branch
             # Further clean text for SBERT embedding (e.g. remove newlines, excessive whitespace) but keep the original cleaned markdown for storage and potential future use
-            # cleaned_text = clean_text_for_sbert(md_clean)
+            cleaned_text = clean_text_for_sbert(md_clean)
 
-            # !!! replace md_clean with cleaned_text in test pipeline
             # Save candidate mapping to SQLite with cleaned (not raw) text
             conn.execute(
                 "INSERT INTO candidates (candidate_id, filename, hash, cleaned_text) VALUES (?, ?, ?, ?)",
-                (candidate_id, filename, file_hash, md_clean)
+                (candidate_id, filename, file_hash, cleaned_text)
             )
             conn.commit()
 
@@ -169,16 +166,14 @@ def process_resumes(pdf_paths):
 def extract_jd(pdf_path):
     text = pymupdf4llm.to_markdown(pdf_path)
 
-    # uncomment in test branch when clean_text_for_sbert is implemented
-    # cleaned = clean_text_for_sbert(text.strip())
+    cleaned = clean_text_for_sbert(text.strip())
     
     filename = os.path.basename(pdf_path)
     jd_id = f"JD_{hashlib.sha256(filename.encode()).hexdigest()[:8]}"
     
-    # replace text with cleaned in test pipeline
     conn.execute(
         "INSERT OR REPLACE INTO job_descriptions (jd_id, filename, cleaned_text) VALUES (?, ?, ?)",
-        (jd_id, filename, text)
+        (jd_id, filename, cleaned)
     )
     conn.commit()
     print(f"Job description processed → {jd_id}")
