@@ -34,7 +34,17 @@ VALID_HEADERS = {
     "responsibilities",
     "qualifications",
     "about the role",
-    "preferred qualifications"
+    "preferred qualifications",
+    "experience",
+    "what we're looking for",
+    "what we need",
+    "what you bring",
+    "what you should have",
+    "what you must have",
+    "language ability",
+    "language abilities",
+    "duties",
+    "duties and responsibilities",
 }
 
 # Sentence-level exclusions (catches stuff buried in paragraphs)

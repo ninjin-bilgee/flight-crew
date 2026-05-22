@@ -32,7 +32,7 @@ from ranker import ResumeRanker
 conn = sqlite3.connect("candidate_map.db")
 
 # Check if candidates exist
-rows = conn.execute("SELECT candidate_id, cleaned_text FROM candidates").fetchall()
+rows = conn.execute("SELECT candidate_id, filename, cleaned_text FROM candidates").fetchall()
 
 if not rows:
     print("No candidates found in database.")
@@ -45,11 +45,11 @@ print(f"Found {len(rows)} candidates.")
 # Generate embeddings
 embeddings = []
 metadata = []
-for candidate_id, cleaned_text in rows:
-    print(f"Embedding {candidate_id}...")
+for candidate_id, filename, cleaned_text in rows:
+    print(f"Embedding {filename}...")
     emb = get_embedding(cleaned_text, resume_id=candidate_id)
     embeddings.append(emb)
-    metadata.append({"filename": candidate_id})
+    metadata.append({"filename": filename})
 
 # Build FAISS index via ranker_service
 ranker_service._ranker = ResumeRanker(embedding_dim=384)
