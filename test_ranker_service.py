@@ -20,6 +20,7 @@ def extract_text_from_pdf(pdf_path):
     return text.strip()
 
 jd_text = extract_text_from_pdf(JD_PDF_PATH)
+print(jd_text)
 
 # 4. Rank
 files = [f for f in os.listdir(RESUME_FOLDER) if os.path.isfile(os.path.join(RESUME_FOLDER, f))]
