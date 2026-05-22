@@ -39,4 +39,6 @@ elif(int(num_ranked) < 1):
 results = rank_resumes(jd_text, k=int(num_ranked))
 
 for r in results:
-    print(f"Rank {r['rank']}: {r['filename']} - Score: {r['similarity_score']:.4f}")
+    score = r['similarity_score']  # e.g., 0.8476
+    percentage = score * 100
+    print(f"Rank {r['rank']}: {r['filename']} - Score: {percentage:.4f}%")

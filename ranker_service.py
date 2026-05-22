@@ -1,4 +1,4 @@
-# ranking_service.py
+# ranker_service.py
 import os
 import glob
 import pdfplumber
@@ -59,8 +59,8 @@ def init_ranker(index_path="faiss_resume_index"):
     _ranker = ResumeRanker()
     _ranker.load_index(index_path)
     print(f"Ranker loaded with {_ranker.index.ntotal} resumes.")
-
-def rank_resumes(job_description_text, k=10):
+    
+def rank_resumes(job_description_text, k):
     """Rank resumes against a job description (text, not PDF)."""
     if _ranker is None:
         raise RuntimeError("Ranker not initialized. Call init_ranker() or build_index_from_folder() first.")
