@@ -7,6 +7,7 @@ from ranker import ResumeRanker
 
 _ranker = None
 _embedding_dim = 384
+_DEFAULT_INDEX = "faiss_resume_index"
 
 def extract_text_from_pdf(pdf_path):
     with pdfplumber.open(pdf_path) as pdf:
@@ -62,6 +63,10 @@ def init_ranker(index_path="faiss_resume_index"):
 
 def rank_resumes(job_description_text, k):
     """Rank resumes against a job description (text, not PDF)."""
+    # Auto-initialize from default index if not already loaded and index exists
+    if _ranker is None and os.path.exists(_DEFAULT_INDEX):
+        init_ranker(_DEFAULT_INDEX)
+    
     if _ranker is None:
         raise RuntimeError("Ranker not initialized. Call init_ranker() or build_index_from_folder() first.")
     jd_embedding = get_embedding(job_description_text)
