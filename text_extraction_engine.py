@@ -13,6 +13,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from preprocessing import clean_text_for_sbert
 
+# Fallback for windows since we had to use lg model for it, just in case!!
 try:
     nlp = spacy.load("en_core_web_trf")
 except OSError:
