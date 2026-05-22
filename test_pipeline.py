@@ -26,7 +26,6 @@ import sqlite3
 import sys
 from embedder import get_embedding
 from ranker import ResumeRanker
-from preprocessing import clean_text_for_sbert
 
 # Connect to database
 conn = sqlite3.connect("candidate_map.db")

@@ -11,7 +11,7 @@ import sqlite3
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from preprocessing import clean_text_for_sbert
+from preprocessing import filter_jd_sections, filter_excluded_sentences, clean_text_for_sbert
 
 # Fallback for windows since we had to use lg model for it, just in case!!
 try:
@@ -33,6 +33,7 @@ conn.execute("""
     CREATE TABLE IF NOT EXISTS job_descriptions (
         jd_id        TEXT PRIMARY KEY,
         filename     TEXT,
+        hash         TEXT UNIQUE,
         cleaned_text TEXT
     )
 """)
@@ -167,9 +168,32 @@ def process_resumes(pdf_paths):
 
 # Extract text from a job description PDF — no anonymization needed!!
 def extract_jd(pdf_path):
-    text = pymupdf4llm.to_markdown(pdf_path)
 
-    cleaned = clean_text_for_sbert(text.strip())
+    # Read bytes for duplicate detection
+    with open(pdf_path, "rb") as f:
+        file_bytes = f.read()
+    file_hash = get_file_hash(file_bytes)
+
+    # Reuse existing JD if already processed, based on file hash
+    existing = conn.execute(
+        "SELECT jd_id FROM job_descriptions WHERE hash = ?",
+        (file_hash,)
+    ).fetchone()
+    if existing:
+        print(f"JD already processed — reusing {existing[0]}")
+        return existing[0]
+    
+    # Process for new JDs:
+    text = pymupdf4llm.to_markdown(pdf_path)
+    text = filter_jd_sections(text.strip())
+
+    # DEBUG — remove after fixing
+    print("=== TEXT BEFORE SENTENCE FILTER ===")
+    print(repr(text))
+    print("===================================")
+
+    text = filter_excluded_sentences(text)
+    cleaned = clean_text_for_sbert(text)
     
     filename = os.path.basename(pdf_path)
     jd_id = f"JD_{hashlib.sha256(filename.encode()).hexdigest()[:8]}"

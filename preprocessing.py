@@ -3,20 +3,30 @@ import re
 
 # section headers that should NOT contribute to job requirement similarity
 EXCLUDED_JD_HEADERS = [
-
     "skills to gain",
     "what you will learn",
+    "what skills will",     
+    "what the intern will",
     "preferred learning",
     "nice to have",
     "bonus skills",
     "growth opportunities",
     "future skills",
     "training provided",
-    "learn",
-    "opportunities to learn"
+    "opportunities to learn",
+    "gain exposure to",
+    "will learn",  
+    "pay & benefits",
+    "pay and benefits",
+    "benefits and perks",
+    "compensation and benefits",
+    "contact us",
+    "contact information",
+    "how to apply",
+    "about the company",
 ]
 
-# valid section headers that STOP skipping
+# ONLY stop skipping if we hit a real new section header
 VALID_HEADERS = {
 
     "required",
@@ -26,6 +36,85 @@ VALID_HEADERS = {
     "about the role",
     "preferred qualifications"
 }
+
+# Sentence-level exclusions (catches stuff buried in paragraphs)
+FUTURE_SKILL_PHRASES = [
+    "the intern will gain exposure to",
+    "you will gain exposure to",
+    "will have the opportunity to learn",
+    "opportunity to gain experience",
+    "gain exposure to",
+    "will gain exposure",
+    "you will learn",
+    "will be trained on",
+    "training will be provided",
+    "will receive training",
+    "opportunity to learn",
+    "introduction to",         
+]
+
+# ending phrases that indicate boilerplate non-requirement sections we can skip
+# marketing pitches etc
+JD_BOILERPLATE_PHRASES = [
+    "we offer a competitive",
+    "we offer competitive",
+    "competitive salary",
+    "comprehensive benefits",
+    "benefits package",
+    "please send your application",
+    "send your application",
+    "send your resume",
+    "how to apply",
+    "to apply please",
+    "deadline for submitting",
+    "application deadline",
+    "equal opportunity employer",
+    "submit your application",
+]
+
+# Return True if a sentence describes skills to be gained, not required
+def _sentence_contains_future_phrase(sentence: str) -> bool:
+    lower = sentence.lower()
+    return any(phrase in lower for phrase in FUTURE_SKILL_PHRASES)
+
+"""
+Remove individual sentences that describe what the candidate WILL learn,
+rather than what they need to already know.
+
+Drops a trigger line AND everything after it until the next section header (## ...). 
+Handles inline lists, semicolons, bullets — any format after the trigger.
+"""
+def filter_excluded_sentences(text: str) -> str:
+
+    lines = text.splitlines()
+    filtered = []
+    skip_until_header = False
+
+    for line in lines:
+        stripped = line.strip()
+        lower = stripped.lower()
+
+        # A real section header restarts normal processing
+        is_section_header = stripped.startswith('#') or any(
+            h in lower for h in VALID_HEADERS
+        )
+
+        if skip_until_header:
+            if not stripped:
+                continue
+            if is_section_header:
+                skip_until_header = False   
+                filtered.append(line)
+            continue
+
+        # Trigger: line contains a future-skill phrase
+        if any(phrase in lower for phrase in FUTURE_SKILL_PHRASES + JD_BOILERPLATE_PHRASES):
+            skip_until_header = True
+            continue 
+
+        filtered.append(line)
+
+    return " ".join(filtered)
 
 # this loads extracted txt resume file
 def load_txt_file(filepath):
@@ -64,32 +153,16 @@ def filter_jd_sections(text):
 
         if is_header:
 
-            lower_header = stripped.lower()
+            # strip markdown syntax + punctuation before matching
+            lower_header = re.sub(r'[#*:]', '', stripped).strip().lower()
 
             # start skipping excluded sections
-            if any(
-                keyword in lower_header
-                for keyword in EXCLUDED_JD_HEADERS
-            ):
-
+            if any(kw in lower_header for kw in EXCLUDED_JD_HEADERS):
                 skip_section = True
                 continue
 
-            # ONLY stop skipping if we hit
-            # a real new section header
-            VALID_HEADERS = {
-
-                "required",
-                "requirements",
-                "responsibilities",
-                "qualifications",
-                "about the role",
-                "preferred qualifications"
-            }
-
-            if lower_header in VALID_HEADERS:
+            if any(vh in lower_header for vh in VALID_HEADERS):
                 skip_section = False
-    
 
         # keep non-excluded content
         if not skip_section:
@@ -177,7 +250,11 @@ def process_resume(
 
     # apply JD filtering ONLY to JDs
     if is_job_description:
+        # Pass 1: drop entire excluded sections by header
         raw_text = filter_jd_sections(raw_text)
+
+        # Pass 2: drop individual sentences with "gain exposure to" etc
+        raw_text = filter_excluded_sentences(raw_text)
 
     # clean text
     cleaned_text = clean_text_for_sbert(raw_text)
