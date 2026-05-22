@@ -1,0 +1,19 @@
+.DS_Store
+**/.DS_Store
+
+# Ignore the extracted markdown files
+resumes_extracted_md/*.md
+
+# Ignore the candidate map file @ PROD
+# candidate_map.json
+
+# Ignore the original PDF resumes @ PROD
+# resumes_pdf/*.pdf
+
+candidate_map.db
+__pycache__/
+*.pyc
+candidate_map.db
+data/embeddings/
+GiantEagle.venv/
+GE.venv/
