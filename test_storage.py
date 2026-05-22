@@ -1,11 +1,47 @@
 from storage import save_candidate, export_to_csv
+from ranking_service import build_index_from_folder, init_ranker, rank_resumes
 
-# pretend these are real resumes that got scored
-save_candidate("Candidate_1", "sample_resume_1.pdf", 0.85, ["Python", "SQL"])
-save_candidate("Candidate_2", "sample_resume_2.pdf", 0.62, ["Java", "Excel"])
-save_candidate("Candidate_3", "sample_resume_3.pdf", 0.91, ["Python", "Machine Learning"])
+RESUME_FOLDER = "resumes_pdf/"
+INDEX_PATH = "faiss_resume_index"
+JD_TEXT = "Looking for a software engineer skilled in Python, machine learning, APIs, React, and AWS."
 
-# export the ranked results to a CSV
+build_index_from_folder(RESUME_FOLDER, INDEX_PATH)
+init_ranker(INDEX_PATH)
+
+results = rank_resumes(JD_TEXT, k=5)
+
+for r in results:
+    candidate_id = f"Candidate_{r['rank']}"
+    save_candidate(
+        candidate_id=candidate_id,
+        filename=r["filename"],
+        score=r["score"],
+        skills=[]
+    )
+
 export_to_csv()
+print("Done!")
 
+from storage import save_candidate, export_to_csv
+from ranking_service import build_index_from_folder, init_ranker, rank_resumes
+
+RESUME_FOLDER = "resumes_pdf/"
+INDEX_PATH = "faiss_resume_index"
+JD_TEXT = "Looking for a software engineer skilled in Python, machine learning, APIs, React, and AWS."
+
+build_index_from_folder(RESUME_FOLDER, INDEX_PATH)
+init_ranker(INDEX_PATH)
+
+results = rank_resumes(JD_TEXT, k=5)
+
+for r in results:
+    candidate_id = f"Candidate_{r['rank']}"
+    save_candidate(
+        candidate_id=candidate_id,
+        filename=r["filename"],
+        score=r["score"],
+        skills=[]
+    )
+
+export_to_csv()
 print("Done!")
