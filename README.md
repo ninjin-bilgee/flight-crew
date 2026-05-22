@@ -24,7 +24,7 @@ python test_scripts/pdf_to_txt_extract_mapped.py run_all --folder /path/to/resum
 **Process specific resumes:**
 python test_scripts/pdf_to_txt_extract_mapped.py run resume1.pdf resume2.pdf
 **Test full pipeline (in full-test branch):**
-python test_pipeline_1.py
+python test_pipeline.py
 
 ### Storage (`candidate_map.db`)
 File-based SQLite database with two tables:
