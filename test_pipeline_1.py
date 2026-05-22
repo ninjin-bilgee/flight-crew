@@ -27,25 +27,27 @@ import sys
 from embedder import get_embedding
 from ranker import ResumeRanker
 from preprocessing import clean_text_for_sbert
+import os
+from ranker_service import init_ranker, rank_resumes
 
 # Connect to database
 conn = sqlite3.connect("candidate_map.db")
 
 # Check if candidates exist
-rows = conn.execute("SELECT candidate_id, cleaned_text FROM candidates").fetchall()
+resume_rows = conn.execute("SELECT candidate_id, cleaned_text FROM candidates").fetchall()
 
-if not rows:
+if not resume_rows:
     print("No candidates found in database.")
     print("Run this first:")
     print("  python test_scripts/text_extraction_engine.py run_all --folder /path/to/resumes")
     sys.exit(1)
 
-print(f"Found {len(rows)} candidates.")
+print(f"Found {len(resume_rows)} candidates.")
 
 # Generate embeddings
 embeddings = []
 metadata = []
-for candidate_id, cleaned_text in rows:
+for candidate_id, cleaned_text in resume_rows:
     print(f"Embedding {candidate_id}...")
     emb = get_embedding(cleaned_text, resume_id=candidate_id)
     embeddings.append(emb)
@@ -56,29 +58,28 @@ ranker = ResumeRanker(embedding_dim=384)
 ranker.build_index(embeddings, metadata)
 
 # read JD from SQLite DB
-row = conn.execute("SELECT cleaned_text FROM job_descriptions LIMIT 1").fetchone()
-if not row:
+jd_row = conn.execute("SELECT cleaned_text FROM job_descriptions LIMIT 1").fetchone()
+if not jd_row:
     print("No job description found. Run:")
     print("  python test_scripts/text_extraction_engine.py upload_jd /path/to/jd.pdf")
     sys.exit(1)
-jd_embedding = get_embedding(row[0])
+jd_embedding = get_embedding(jd_row[0])
 
 # Rank
-files = [f for f in os.listdir(RESUME_FOLDER) if os.path.isfile(os.path.join(RESUME_FOLDER, f))]
-file_count = len(files)
+file_count = len(resume_rows)
 num_ranked = input(f'How many top candidates would you like to see? (Please enter number 1-{file_count}) \n')
 
 if(not num_ranked.isdigit()):
     print("Invalid input, displaying all ranks")
     num_ranked = file_count
 if(int(num_ranked) > file_count):
-    print("Input too big, displaying all ranks")
+    print("Input too big, displaying all rankus")
     num_ranked = file_count
 elif(int(num_ranked) < 1):
     print("Input too small, displaying all ranks")
     num_ranked = file_count
 
-results = rank_resumes(jd_text, k=int(num_ranked))
+results = rank_resumes(jd_row[0], k=int(num_ranked))
 
 print("\n=== RANKING RESULTS ===")
 for r in results:
