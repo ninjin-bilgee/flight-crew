@@ -13,7 +13,10 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from preprocessing import clean_text_for_sbert
 
-nlp = spacy.load("en_core_web_trf")
+try:
+    nlp = spacy.load("en_core_web_trf")
+except OSError:
+    nlp = spacy.load("en_core_web_lg")
 
 # Set up SQLite database for candidate mapping
 conn = sqlite3.connect("candidate_map.db")
