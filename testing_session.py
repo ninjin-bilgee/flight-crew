@@ -27,9 +27,27 @@ import sys
 import ranker_service
 from embedder import get_embedding
 from ranker import ResumeRanker
+import atexit
+import shutil
+import os
 
 # Connect to database
 conn = sqlite3.connect("candidate_map.db")
+
+# Cleanup runs automatically when script finishes
+DB_PATH = "candidate_map.db"
+EMBEDDINGS_PATH = "data/embeddings/"
+
+def _cleanup():
+    conn.close()
+    if os.path.exists(DB_PATH):
+        os.remove(DB_PATH)
+        print("\nSession ended — candidate_map.db deleted.")
+    if os.path.exists(EMBEDDINGS_PATH):
+        shutil.rmtree(EMBEDDINGS_PATH)
+        print("Session ended — embeddings cache cleared.")
+
+atexit.register(_cleanup)
 
 # Check if candidates exist
 rows = conn.execute("SELECT candidate_id, filename, cleaned_text FROM candidates").fetchall()
