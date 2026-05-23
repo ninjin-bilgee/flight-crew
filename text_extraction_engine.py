@@ -196,12 +196,13 @@ def extract_jd(pdf_path):
     cleaned = clean_text_for_sbert(text)
     
     filename = os.path.basename(pdf_path)
-    jd_id = f"JD_{hashlib.sha256(filename.encode()).hexdigest()[:8]}"
+    jd_id = f"JD_{file_hash[:8]}"
     
     conn.execute(
-        "INSERT OR REPLACE INTO job_descriptions (jd_id, filename, cleaned_text) VALUES (?, ?, ?)",
-        (jd_id, filename, cleaned)
+        "INSERT OR REPLACE INTO job_descriptions (jd_id, filename, hash, cleaned_text) VALUES (?, ?, ?, ?)",
+        (jd_id, filename, file_hash, cleaned)
     )
+
     conn.commit()
     print(f"Job description processed → {jd_id}")
     return jd_id
