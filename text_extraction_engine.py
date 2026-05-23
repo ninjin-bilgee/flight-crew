@@ -8,6 +8,7 @@ import sys
 import shutil
 import tempfile
 import sqlite3
+import atexit
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -21,6 +22,7 @@ except OSError:
 
 # Set up SQLite database for candidate mapping
 conn = sqlite3.connect("candidate_map.db")
+
 conn.execute("""
     CREATE TABLE IF NOT EXISTS candidates (
         candidate_id  TEXT PRIMARY KEY,
