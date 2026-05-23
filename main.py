@@ -29,6 +29,7 @@ import sys
 import ranker_service
 from embedder import get_embedding
 from ranker import ResumeRanker
+from storage import save_candidate, export_to_csv
 import atexit
 import shutil
 import os
@@ -52,7 +53,7 @@ def _cleanup():
 atexit.register(_cleanup)
 
 # Check if candidates exist
-rows = conn.execute("SELECT candidate_id, cleaned_text FROM candidates").fetchall()
+rows = conn.execute("SELECT candidate_id, filename, cleaned_text FROM candidates").fetchall()
 
 if not rows:
     print("No candidates found in database.")
@@ -65,11 +66,11 @@ print(f"Found {len(rows)} candidates.")
 # Generate embeddings
 embeddings = []
 metadata = []
-for candidate_id, cleaned_text in rows:
-    print(f"Embedding {candidate_id}...")
+for candidate_id, filename, cleaned_text in rows:
+    print(f"Embedding {filename}...")
     emb = get_embedding(cleaned_text, resume_id=candidate_id)
     embeddings.append(emb)
-    metadata.append({"filename": candidate_id})
+    metadata.append({"filename": filename})
 
 # Build FAISS index via ranker_service
 ranker_service._ranker = ResumeRanker(embedding_dim=384)
@@ -101,3 +102,11 @@ results = ranker_service.rank_resumes(row[0], k=int(num_ranked))
 print("\n=== RANKING RESULTS ===")
 for r in results:
     print(f"Rank {r['rank']}: {r['filename']} — Score: {r['similarity_score']:.4f}")
+    save_candidate(
+        candidate_id=r['filename'],
+        filename=r['filename'],
+        score=r['similarity_score']
+    )
+
+export_to_csv()
+print("Results saved to ranked_results.csv")
