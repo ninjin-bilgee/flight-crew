@@ -20,7 +20,7 @@ HOWEVER, if you are adding new resumes to an existing batch, just do steps 1-3 d
    python cli.py upload_jd /path/to/jd.pdf
 
 3. Run the pipeline:
-   python test_pipeline.py
+   python testing_session.py
 """
 import sqlite3
 import sys
