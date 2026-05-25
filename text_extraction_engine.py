@@ -8,7 +8,6 @@ import sys
 import shutil
 import tempfile
 import sqlite3
-import atexit
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -150,7 +149,7 @@ def extract_resumes(pdf_paths):
             md = pymupdf4llm.to_markdown(tmp_path)
             md_clean = anonymize(md)
 
-            # Further clean text for SBERT embedding (e.g. remove newlines, excessive whitespace) but keep the original cleaned markdown for storage and potential future use
+            # Further clean text for SBERT embedding (e.g. remove newlines, excessive whitespace)
             cleaned_text = clean_text_for_sbert(md_clean)
 
             # Save candidate mapping to SQLite with cleaned (not raw) text
@@ -188,7 +187,7 @@ def extract_jd(pdf_path):
     text = pymupdf4llm.to_markdown(pdf_path)
     text = filter_jd_sections(text.strip())
     text = filter_excluded_sentences(text)
-    
+
     cleaned = clean_text_for_sbert(text)
     
     filename = os.path.basename(pdf_path)
@@ -202,4 +201,3 @@ def extract_jd(pdf_path):
     conn.commit()
     print(f"Job description processed → {jd_id}")
     return jd_id
-

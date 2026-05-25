@@ -3,7 +3,7 @@ import os
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "test_scripts"))
 
-from text_extraction_engine import process_resumes, extract_jd
+from text_extraction_engine import extract_resumes, extract_jd
 
 # Upload and process all resumes in a folder
 def upload_resumes(folder):
@@ -15,11 +15,11 @@ def upload_resumes(folder):
     if not pdf_paths:
         print(f"No PDFs found in {folder}")
         return
-    process_resumes(pdf_paths)
+    extract_resumes(pdf_paths)
 
 # Upload and process a single resume PDF
 def upload_resume(pdf_path):
-    process_resumes([pdf_path])
+    extract_resumes([pdf_path])
 
 # Upload and process a job description PDF
 def upload_jd(pdf_path):

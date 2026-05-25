@@ -5,8 +5,8 @@ Before running the test, make sure you delete these files with these commands:
 rm candidate_map.db
 rm -rf data/embeddings/
 
-You need to delete both because embedder.py caches embeddings as .npy files in data/embeddings/. 
-If you delete the db but keep the cache, the candidate IDs won't match up anymore. 
+You need to delete both because embedder.py caches embeddings as .npy files in data/embeddings/.
+If you delete the db but keep the cache, the candidate IDs won't match up anymore.
 
 HOWEVER, if you are adding new resumes to an existing batch, just do steps 1-3 directly.
 
@@ -14,7 +14,7 @@ HOWEVER, if you are adding new resumes to an existing batch, just do steps 1-3 d
    python cli.py upload_resumes --folder /your/path/to/resumes
 
    or you can upload a single resume with:
-   python cli.py upload_resume /your/path/to/resume.pdf 
+   python cli.py upload_resume /your/path/to/resume.pdf
 
 2. Upload the job description:
    python cli.py upload_jd /path/to/jd.pdf
@@ -55,7 +55,7 @@ rows = conn.execute("SELECT candidate_id, filename, cleaned_text FROM candidates
 if not rows:
     print("No candidates found in database.")
     print("Run this first:")
-    print("  python test_scripts/text_extraction_engine.py run_all --folder /path/to/resumes")
+    print("  python cli.py upload_resumes --folder /path/to/resumes")
     sys.exit(1)
 
 print(f"Found {len(rows)} candidates.")
@@ -70,32 +70,37 @@ for candidate_id, filename, cleaned_text in rows:
     metadata.append({"filename": filename})
 
 # Build FAISS index via ranker_service
-ranker_service._ranker = ResumeRanker(embedding_dim=384)
+ranker_service._ranker = ResumeRanker(embedding_dim=768)
 ranker_service._ranker.build_index(embeddings, metadata)
 
-# read JD from SQLite DB
+# Read JD from SQLite DB
 row = conn.execute("SELECT cleaned_text FROM job_descriptions LIMIT 1").fetchone()
 if not row:
     print("No job description found. Run:")
-    print("  python test_scripts/text_extraction_engine.py upload_jd /path/to/jd.pdf")
+    print("  python cli.py upload_jd /path/to/jd.pdf")
     sys.exit(1)
 
-# Rank
+# Ask how many results to display
 file_count = len(rows)
 num_ranked = input(f'How many top candidates would you like to see? (Please enter number 1-{file_count}) \n')
 
-if(not num_ranked.isdigit()):
+if not num_ranked.isdigit():
     print("Invalid input, displaying all ranks")
     num_ranked = file_count
-if(int(num_ranked) > file_count):
+elif int(num_ranked) > file_count:
     print("Input too big, displaying all ranks")
     num_ranked = file_count
-elif(int(num_ranked) < 1):
+elif int(num_ranked) < 1:
     print("Input too small, displaying all ranks")
     num_ranked = file_count
 
-results = ranker_service.rank_resumes(row[0], k=int(num_ranked))
+# Rank
+ranking = ranker_service.rank_resumes(row[0], k=int(num_ranked))
+results = ranking['results']
 
 print("\n=== RANKING RESULTS ===")
+if ranking['weak_batch']:
+    print("⚠  WARNING: No strong matches found — even the top candidate is a weak fit for this job.\n")
+
 for r in results:
     print(f"Rank {r['rank']}: {r['filename']} — Score: {r['similarity_score']:.4f}")
