@@ -17,3 +17,5 @@ candidate_map.db
 data/embeddings/
 GiantEagle.venv/
 GE.venv/
+VirtEnv.venv/
+
