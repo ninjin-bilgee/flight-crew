@@ -1,17 +1,13 @@
 # ranking_service.py
 import os
 import glob
-import pdfplumber
+import sqlite3
 from embedder import get_embedding
 from ranker import ResumeRanker
+from text_extraction_engine import extract_resumes, extract_jd, conn
 
 _ranker = None
 _embedding_dim = 384
-
-def extract_text_from_pdf(pdf_path):
-    with pdfplumber.open(pdf_path) as pdf:
-        text = "\n".join(page.extract_text() or "" for page in pdf.pages)
-    return text.strip()
 
 def build_index_from_folder(resume_folder, index_save_path="faiss_resume_index"):
     """Process all resume PDFs in a folder, build FAISS index, and save it."""
@@ -20,32 +16,19 @@ def build_index_from_folder(resume_folder, index_save_path="faiss_resume_index")
     if not resume_paths:
         raise ValueError(f"No PDF files found in {resume_folder}")
 
-    resume_texts = []
-    resume_metadata = []
-    resume_ids = []
+    extract_resumes(resume_paths)
 
-    for path in resume_paths:
-        resume_id = os.path.splitext(os.path.basename(path))[0]
-        text = extract_text_from_pdf(path)
-        if text:
-            resume_texts.append(text)
-            resume_metadata.append({
-                'filename': os.path.basename(path),
-                'resume_id': resume_id,
-                'path': path
-            })
-            resume_ids.append(resume_id)
-        else:
-            print(f"Warning: No text extracted from {path}")
+    rows = conn.execute("SELECT candidate_id, filename, cleaned_text FROM candidates").fetchall()
+    if not rows:
+        raise ValueError("No valid resumes found after extraction.")
 
-    if not resume_texts:
-        raise ValueError("No valid resumes with text found.")
-
-    print(f"Generating embeddings for {len(resume_texts)} resumes...")
+    print(f"Generating embeddings for {len(rows)} resumes...")
     resume_embeddings = []
-    for i, text in enumerate(resume_texts):
-        emb = get_embedding(text, resume_id=resume_ids[i])
+    resume_metadata = []
+    for candidate_id, filename, cleaned_text in rows:
+        emb = get_embedding(cleaned_text, resume_id=candidate_id)
         resume_embeddings.append(emb)
+        resume_metadata.append({'filename': filename, 'resume_id': candidate_id})
 
     ranker = ResumeRanker(embedding_dim=_embedding_dim)
     ranker.build_index(resume_embeddings, resume_metadata)

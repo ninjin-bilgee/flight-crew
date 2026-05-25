@@ -103,8 +103,7 @@ def anonymize(text):
 
     return text
 
-# Core processing function that can be called by both run() and run_all()
-def process_resumes(pdf_paths):
+def extract_resumes(pdf_paths):
 
     # Use a temporary directory to stage files for processing, ensuring cleanup even if errors occur
     tmp_dir_obj = tempfile.TemporaryDirectory()
@@ -188,13 +187,8 @@ def extract_jd(pdf_path):
     # Process for new JDs:
     text = pymupdf4llm.to_markdown(pdf_path)
     text = filter_jd_sections(text.strip())
-
-    # DEBUG — remove after fixing
-    print("=== TEXT BEFORE SENTENCE FILTER ===")
-    print(repr(text))
-    print("===================================")
-
     text = filter_excluded_sentences(text)
+    
     cleaned = clean_text_for_sbert(text)
     
     filename = os.path.basename(pdf_path)
