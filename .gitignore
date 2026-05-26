@@ -11,11 +11,10 @@ resumes_extracted_md/*.md
 # resumes_pdf/*.pdf
 
 candidate_map.db
-__pycache__/
-*.pyc
-candidate_map.db
 data/embeddings/
-GiantEagle.venv/
-GE.venv/
-VirtEnv.venv/
+venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+
 
