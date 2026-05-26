@@ -76,6 +76,7 @@ def rank_resumes(job_description_text, k=10):
         ).fetchone()
         resume_text = row[0] if row else ""
         r['ce_score'] = cross_encoder_score(job_description_text, resume_text)
+        print(f"  {r['filename']}: raw logit = {r['ce_score']:.4f}")
 
     # Stage 3: sort by raw cross-encoder logit
     pool.sort(key=lambda x: x['ce_score'], reverse=True)
@@ -83,7 +84,7 @@ def rank_resumes(job_description_text, k=10):
     # Absolute quality check — raw logits are the honest signal, before batch rescaling.
     # If even the best resume can't clear this cutoff, nobody is a real match.
     best_logit = max(r['ce_score'] for r in pool)
-    weak_batch = best_logit < -3.0   # tune from test data
+    weak_batch = best_logit < -5.5   # tune from test data
 
     # Stage 4: per-batch standardized sigmoid — consistent spread across all job types
     logits = np.array([r['ce_score'] for r in pool])

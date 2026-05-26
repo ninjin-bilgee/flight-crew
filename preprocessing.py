@@ -82,6 +82,25 @@ JD_BOILERPLATE_PHRASES = [
     "submit your application",
 ]
 
+# Workday application-export boilerplate — these strings carry no signal
+# and the JD-title leak actively corrupts matching; strip before embedding
+WORKDAY_NOISE_PATTERNS = [
+    r'for:?\s+\d{3,}[\w\s]*?(?:leader|manager|associate|clerk|member|supervisor)',         
+    r'view job application',
+    r'added by external career site',
+    r'page\s+\d+\s+of\s+\d+',
+    r'\d{1,2}\s+\d{2}\s+[ap]m\s+\d{2}\s+\d{2}\s+\d{4}',  
+    r'picture\s+\d+\s*x\s*\d+\s*intentionally omitted',
+    r'-+\s*start of picture text\s*-+',
+    r'-+\s*end of picture text\s*-+',
+    r'jobs applied to',
+    r'candidate information',
+    r'\busername\b',
+    r'none entered',
+    r'overview overview',
+    r'application name',
+]
+
 # Return True if a sentence describes skills to be gained, not required
 def _sentence_contains_future_phrase(sentence: str) -> bool:
     lower = sentence.lower()
@@ -187,15 +206,27 @@ def clean_text_for_sbert(raw_text):
     # lowercase text for consistent comparisons
     text = raw_text.lower()
 
+    # --- Workday boilerplate strip (Layer 1) ---
+    for pattern in WORKDAY_NOISE_PATTERNS:
+        text = re.sub(pattern, ' ', text, flags=re.IGNORECASE)
+    # remove stray column-break 'br' tokens left by multi-column extraction
+    text = re.sub(r'\bbr\b', ' ', text)
+    # --- end Workday strip ---
+
+    # OCR bullet artifacts: '●' often OCRs as a stray 'e'.
+    # Strip ' - e ' and ' e ' sequences that are orphaned bullet markers.
+    text = re.sub(r'\s+-\s+e\s+', ' ', text)      # "- e point of sale" -> " point of sale"
+    #text = re.sub(r'(?:^|\s)e\s+(?=[a-z])', ' ', text)  # leading orphan 'e' before a word
+    # stray 'ae' at the very start is an OCR header artifact
+    text = re.sub(r'^\s*ae\s+', '', text)
 
     text = re.sub(r'\bremoved\b', ' ', text)
 
-    # my OCR cleanup
     # fixes broken spacing/newlines/tabs
     text = re.sub(r'[\r\n\t]+', ' ', text)
 
     text = re.sub(r'_+', ' ', text)
-    
+
     # normalize whitespace/newlines into single spaces
     text = re.sub(r'\s+', ' ', text).strip()
 
@@ -205,9 +236,7 @@ def clean_text_for_sbert(raw_text):
     # normalize spaces again after regex cleanup
     text = re.sub(r'\s+', ' ', text).strip()
 
-    # return cleaned text
     return text
-
 
 # this extracts meaningful keywords
 def extract_keywords(text):

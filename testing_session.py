@@ -60,6 +60,10 @@ if not rows:
 
 print(f"Found {len(rows)} candidates.")
 
+for cid, fn, ct in rows:
+    print(f"\n=== {fn} ({len(ct)} chars) ===")
+    print(ct[:800])
+
 # Generate embeddings
 embeddings = []
 metadata = []
