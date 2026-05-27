@@ -144,7 +144,7 @@ if ranking['weak_batch']:
 # print each ranked result with a short snippet of the resume so the user can see who it is
 for r in results:
     snippet = snippets.get(r['filename'], '')[:120].strip()
-    print(f"Rank {r['rank']}: {r['filename']} — Score: {r['similarity_score']:.4f}")
+    print(f"Rank {r['rank']}: {r['filename']} — Score: {r['similarity_score'] * 100:.2f}%")
     print(f"    {snippet}...")
 
 # Step 5: export the ranked results to a downloadable CSV
@@ -157,7 +157,7 @@ with open(OUTPUT_CSV, "w", newline="") as f:
         writer.writerow({
             "rank": r["rank"],
             "filename": r["filename"],
-            "similarity_score": round(r["similarity_score"], 4),
+            "similarity_score": round(r["similarity_score"] * 100, 2),
         })
 
 print(f"\nRanked results saved to {OUTPUT_CSV}")
