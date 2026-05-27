@@ -1,3 +1,5 @@
+# Storage module for saving and exporting candidate ranking results
+
 import json  # lets us read and write JSON files
 import csv   # lets us read and write CSV files
 import os    # lets us check if a file exists on the computer

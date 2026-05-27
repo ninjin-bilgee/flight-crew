@@ -1,3 +1,5 @@
+# Ranker module
+
 import faiss #help search numbers of resume embeddings
 import numpy as np #store embedding
 import json # store resume
@@ -5,7 +7,7 @@ import os #check if file exist
 
 class ResumeRanker:
     #runs auto when theres a new ResumeRanker object created
-    def __init__(self, embedding_dim=384): # dimension of embedding vectors
+    def __init__(self, embedding_dim=768): # dimension of embedding vectors
         #Initializes an empty FAISS index for the resumes.
         self.index = faiss.IndexFlatIP(embedding_dim)  # Use Inner Product for cosine similarity
         self.resume_metadata = []  # Stores filename and a path to the cleaned text

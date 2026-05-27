@@ -1,7 +1,15 @@
-# importing libraries used to extract text and regex text cleaning
+# Preprocessing Engine: Clean Extracted Text for SBERT Embedding
+"""
+Prepares raw text for SBERT embedding by:
+- Stripping boilerplate sections that don't reflect candidate skills
+- Removing sentences that describe what the candidate will learn rather than what they need to know
+- Cleaning OCR artifacts and normalizing whitespace
+- Extracting keywords (not currently used in ranking but available for future features)
+"""
+
 import re
 
-# section headers that should NOT contribute to job requirement similarity
+# JD: section headers that should NOT contribute to job requirement similarity
 EXCLUDED_JD_HEADERS = [
     "skills to gain",
     "what you will learn",
@@ -26,9 +34,8 @@ EXCLUDED_JD_HEADERS = [
     "about the company",
 ]
 
-# ONLY stop skipping if we hit a real new section header
+# JD: valid new section headers in a JD
 VALID_HEADERS = {
-
     "required",
     "requirements",
     "responsibilities",
@@ -47,7 +54,7 @@ VALID_HEADERS = {
     "duties and responsibilities",
 }
 
-# Sentence-level exclusions (catches stuff buried in paragraphs)
+# JD: sentence-level exclusions (catches stuff buried in paragraphs)
 FUTURE_SKILL_PHRASES = [
     "the intern will gain exposure to",
     "you will gain exposure to",
@@ -63,8 +70,7 @@ FUTURE_SKILL_PHRASES = [
     "introduction to",         
 ]
 
-# ending phrases that indicate boilerplate non-requirement sections we can skip
-# marketing pitches etc
+# JD: ending phrases that indicate boilerplate non-requirement sections we can skip
 JD_BOILERPLATE_PHRASES = [
     "we offer a competitive",
     "we offer competitive",
@@ -82,8 +88,8 @@ JD_BOILERPLATE_PHRASES = [
     "submit your application",
 ]
 
-# Workday application-export boilerplate — these strings carry no signal
-# and the JD-title leak actively corrupts matching; strip before embedding
+# JD: Workday application-export boilerplate
+# carry no signal
 WORKDAY_NOISE_PATTERNS = [
     r'for:?\s+\d{3,}[\w\s]*?(?:leader|manager|associate|clerk|member|supervisor)',         
     r'view job application',
@@ -101,87 +107,33 @@ WORKDAY_NOISE_PATTERNS = [
     r'application name',
 ]
 
-# Return True if a sentence describes skills to be gained, not required
-def _sentence_contains_future_phrase(sentence: str) -> bool:
-    lower = sentence.lower()
-    return any(phrase in lower for phrase in FUTURE_SKILL_PHRASES)
 
 """
-Remove individual sentences that describe what the candidate WILL learn,
-rather than what they need to already know.
-
-Drops a trigger line AND everything after it until the next section header (## ...). 
-Handles inline lists, semicolons, bullets — any format after the trigger.
+Function: header-driven filter to filter out irrelevant sections of the JD
+- stops matching (starts skipping) when it hits a section header that matches an EXCLUDED_JD_HEADERS keyword
+- resumes matching (stops skipping) when it hits a section header that matches a VALID_HEADERS keyword
+- returns lines of text separated by newlines for filter_excluded_sentences
 """
-def filter_excluded_sentences(text: str) -> str:
-
-    lines = text.splitlines()
-    filtered = []
-    skip_until_header = False
-
-    for line in lines:
-        stripped = line.strip()
-        lower = stripped.lower()
-
-        # A real section header restarts normal processing
-        is_section_header = stripped.startswith('#') or any(
-            h in lower for h in VALID_HEADERS
-        )
-
-        if skip_until_header:
-            if not stripped:
-                continue
-            if is_section_header:
-                skip_until_header = False   
-                filtered.append(line)
-            continue
-
-        # Trigger: line contains a future-skill phrase
-        if any(phrase in lower for phrase in FUTURE_SKILL_PHRASES + JD_BOILERPLATE_PHRASES):
-            skip_until_header = True
-            continue 
-
-        filtered.append(line)
-
-    return " ".join(filtered)
-
-# this loads extracted txt resume file
-def load_txt_file(filepath):
-
-    # opening txt file with utf-8 encoding
-    with open(filepath, "r", encoding="utf-8") as file:
-
-        # read all text from file
-        text = file.read()
-
-    # return raw extracted text
-    return text
-
-
-# removes non-requirement JD sections
 def filter_jd_sections(text):
 
     # split text into lines
     lines = text.splitlines()
-
-    filtered_lines = []
-
+    filtered = []
+    # state variable to track whether we're currently in an excluded section
     skip_section = False
 
     for line in lines:
-
-        # clean line
+        # clean line of whitespace
         stripped = line.strip()
-
-        # skip empty lines
+        # if nothing left, skip it
         if not stripped:
             continue
 
         # detect likely headers
+        # threshold: if the line is short (<60 chars)
         is_header = len(stripped) < 60
 
         if is_header:
-
             # strip markdown syntax + punctuation before matching
             lower_header = re.sub(r'[#*:]', '', stripped).strip().lower()
 
@@ -195,23 +147,84 @@ def filter_jd_sections(text):
 
         # keep non-excluded content
         if not skip_section:
-            filtered_lines.append(stripped)
+            filtered.append(stripped)
 
-    return "\n".join(filtered_lines)
+    return "\n".join(filtered)
 
 
-# cleans text for SBERT embeddings
+
+"""
+Function: line-by-line filter to filter out irrelevant sentences and sections from JD
+- stops matching (starts skipping) when it hits a sentence that contains a FUTURE_SKILL_PHRASE or JD_BOILERPLATE_PHRASE
+- resumes matching (stops skipping) when it hits a section header that matches a VALID_HEADERS keyword
+- relies on filter_excluded_sentences to join by newlines
+- returns one block of text with relevant sections separated by spaces
+- run AFTER filter_jd_sections (complementary filter)
+"""
+def filter_excluded_sentences(text: str) -> str:
+
+    # split text into lines for processing
+    lines = text.splitlines()
+    filtered = []
+    # state variable to track whether we're currently skipping lines until the next header
+    skip_until_header = False
+
+    for line in lines:
+        # clean line of whitespace
+        stripped = line.strip()
+        # lowercase for case-insensitive matching
+        lower = stripped.lower()
+
+        # a real section header restarts normal processing
+        # check for likely headers either from VALID_HEADERS or section-like formatting (e.g. markdown '## Header')
+        is_section_header = stripped.startswith('#') or any(
+            h in lower for h in VALID_HEADERS
+        )
+
+        # if we hit a section header, we can stop skipping and resume normal processing
+        # - decreases noise
+        if skip_until_header:
+            if not stripped:
+                continue
+            if is_section_header:
+                skip_until_header = False  
+                # append this section content to filtered since it's under a valid header 
+                filtered.append(line)
+            continue
+
+        # Trigger: line contains a future-skill phrase or boilerplate phrase
+        if any(phrase in lower for phrase in FUTURE_SKILL_PHRASES + JD_BOILERPLATE_PHRASES):
+            # this triggers skipping again
+            skip_until_header = True
+            continue 
+
+        # if we get here, this line is not excluded and we're not in a skip state, so we keep it
+        filtered.append(line)
+
+    # join the filtered lines back into a single text block
+    return " ".join(filtered)
+
+
+
+"""
+Function: cleans text for SBERT embeddings
+- lowercases for more consistent embedding space comparisons
+- strips Workday boilerplate that would otherwise dominate the embedding space and cause poor matches
+- removes common OCR artifacts (e.g. 'e' in place of bullets)
+- normalizes whitespaces and newlines to normal spaces 
+- removes weird special characters
+- returns cleaned text ready for embedding
+"""
 def clean_text_for_sbert(raw_text):
-
     # lowercase text for consistent comparisons
     text = raw_text.lower()
 
-    # --- Workday boilerplate strip (Layer 1) ---
+    # Workday boilerplate strip layer
     for pattern in WORKDAY_NOISE_PATTERNS:
         text = re.sub(pattern, ' ', text, flags=re.IGNORECASE)
     # remove stray column-break 'br' tokens left by multi-column extraction
     text = re.sub(r'\bbr\b', ' ', text)
-    # --- end Workday strip ---
+    # end of workday strip layer
 
     # OCR bullet artifacts: '●' often OCRs as a stray 'e'.
     # Strip ' - e ' and ' e ' sequences that are orphaned bullet markers.
@@ -224,7 +237,6 @@ def clean_text_for_sbert(raw_text):
 
     # fixes broken spacing/newlines/tabs
     text = re.sub(r'[\r\n\t]+', ' ', text)
-
     text = re.sub(r'_+', ' ', text)
 
     # normalize whitespace/newlines into single spaces
@@ -238,9 +250,11 @@ def clean_text_for_sbert(raw_text):
 
     return text
 
-# this extracts meaningful keywords
+"""
+Function: extracts keywords from text for potential future use in enhanced ranking features or explainability
+- currently NOT USED in the ranking pipeline but available for future iterations
+"""
 def extract_keywords(text):
-
     STOPWORDS = {
 
         "the", "and", "for", "with",
@@ -263,13 +277,11 @@ def extract_keywords(text):
     for word in words:
 
         clean_word = word.lower()
-
         # this remove short/generic tokens
         if (
             len(clean_word) > 2
             and clean_word not in STOPWORDS
         ):
-
             keywords.append(clean_word)
 
     # remove duplicates while preserving order
@@ -277,25 +289,3 @@ def extract_keywords(text):
 
     return unique_keywords
 
-
-# full preprocessing pipeline
-def process_resume(
-    txt_filepath,
-    is_job_description=False
-):
-
-    # loading txt file
-    raw_text = load_txt_file(txt_filepath)
-
-    # apply JD filtering ONLY to JDs
-    if is_job_description:
-        # Pass 1: drop entire excluded sections by header
-        raw_text = filter_jd_sections(raw_text)
-
-        # Pass 2: drop individual sentences with "gain exposure to" etc
-        raw_text = filter_excluded_sentences(raw_text)
-
-    # clean text
-    cleaned_text = clean_text_for_sbert(raw_text)
-
-    return cleaned_text

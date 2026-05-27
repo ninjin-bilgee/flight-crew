@@ -1,3 +1,5 @@
+# Embedder module
+
 import numpy as np
 from sentence_transformers import SentenceTransformer, CrossEncoder
 from pathlib import Path
@@ -38,7 +40,7 @@ def get_embedding(text: str, resume_id: str = None) -> np.ndarray:
 
     # Compute embedding
     model = _get_model()
-    embedding = model.encode(text)  # returns numpy array of shape (384,)
+    embedding = model.encode(text)  # returns numpy array of shape (768,)
 
     # If resume_id provided, save to cache
     if resume_id is not None:
