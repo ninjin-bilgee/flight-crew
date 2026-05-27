@@ -15,27 +15,24 @@ rm -rf data/embeddings/
 You need to delete both because embedder.py caches embeddings as .npy files in data/embeddings/.
 If you delete the db but keep the cache, the candidate IDs won't match up anymore.
 
-HOWEVER, if you are adding new resumes to an existing batch, just do steps 1-3 directly.
-
 Usage:
-    python run.py <resume_folder> <jd_pdf_path>
+    python main.py <resume_folder> <jd_pdf_path>
 
 Example:
-    python run.py data/resumes/ data/jd.pdf
+    python main.py data/resumes/ data/jd.pdf
 """
-import sqlite3
 import sys
 import os
-import hashlib
 import shutil
 import atexit
 import csv
-import ranker_service
+
+# extract_resumes, extract_jd, and conn all live in text_extraction_engine
+# importing conn here means run.py reuses the engine's DB connection — no second connection
+from text_extraction_engine import extract_resumes, extract_jd, conn
 from embedder import get_embedding
 from ranker import ResumeRanker
-from extraction import extract_text
-from text_extraction_engine import anonymize
-from preprocessing import clean_text_for_sbert, filter_jd_sections, filter_excluded_sentences
+import ranker_service
 
 # require exactly 2 command-line arguments: the resume folder and the JD PDF path
 if len(sys.argv) != 3:
@@ -48,28 +45,6 @@ JD_PATH = sys.argv[2]
 # local SQLite DB file and the embedding cache folder
 DB_PATH = "candidate_map.db"
 EMBEDDINGS_PATH = "data/embeddings/"
-
-# open (or create) the SQLite DB used to map candidates and JDs to their cleaned text
-conn = sqlite3.connect(DB_PATH)
-# candidates table: one row per resume, keyed by a unique candidate_id
-conn.execute("""
-    CREATE TABLE IF NOT EXISTS candidates (
-        candidate_id  TEXT PRIMARY KEY,
-        filename      TEXT,
-        hash          TEXT UNIQUE,
-        cleaned_text  TEXT
-    )
-""")
-# job_descriptions table: one row per JD, keyed by a unique jd_id
-conn.execute("""
-    CREATE TABLE IF NOT EXISTS job_descriptions (
-        jd_id        TEXT PRIMARY KEY,
-        filename     TEXT,
-        hash         TEXT UNIQUE,
-        cleaned_text TEXT
-    )
-""")
-conn.commit()
 
 """
 Function: session cleanup — runs automatically when the script exits
@@ -91,114 +66,23 @@ def _cleanup():
 # register the cleanup to fire on normal interpreter exit
 atexit.register(_cleanup)
 
-# returns a SHA-256 hash of the file bytes — used as a unique fingerprint for duplicate detection
-def get_file_hash(file_bytes):
-    return hashlib.sha256(file_bytes).hexdigest()
-
-"""
-Function:
-- Extracts text from every PDF resume in the given folder
-- Anonymizes PII and cleans the text for embedding
-- Saves each resume to the SQLite DB with a unique candidate ID (Candidate_#)
-- Skips any resume whose file hash already exists (duplicate detection)
-"""
-def ingest_resumes(resume_folder):
-    # collect all PDF file paths in the resume folder
-    pdf_paths = [
-        os.path.join(resume_folder, f)
-        for f in os.listdir(resume_folder)
-        if f.endswith(".pdf")
-    ]
-    # stop early if the folder has no PDFs
-    if not pdf_paths:
-        print(f"No PDFs found in {resume_folder}")
-        sys.exit(1)
-
-    # get the current candidate count so ID numbering continues correctly
-    row = conn.execute("SELECT COUNT(*) FROM candidates").fetchone()
-    # id_counter starts at 1 if no candidates, otherwise continues from last count + 1
-    id_counter = row[0] + 1
-
-    for pdf_path in pdf_paths:
-        filename = os.path.basename(pdf_path)
-        # read bytes for duplicate detection
-        with open(pdf_path, "rb") as f:
-            file_bytes = f.read()
-        file_hash = get_file_hash(file_bytes)
-
-        # duplicate check against the UNIQUE hash column
-        existing = conn.execute(
-            "SELECT candidate_id FROM candidates WHERE hash = ?", (file_hash,)
-        ).fetchone()
-        # if this exact file was already processed, skip it
-        if existing:
-            print(f"Skipping {filename} — already processed as {existing[0]}")
-            continue
-
-        # assign a new unique candidate ID
-        candidate_id = f"Candidate_{id_counter}"
-        id_counter += 1
-
-        # extract raw text (layout-aware, OCR fallback) -> anonymize PII -> clean for SBERT
-        text = extract_text(pdf_path)
-        text = anonymize(text)
-        cleaned = clean_text_for_sbert(text)
-
-        # save the candidate mapping with the final cleaned text
-        conn.execute(
-            "INSERT INTO candidates (candidate_id, filename, hash, cleaned_text) VALUES (?, ?, ?, ?)",
-            (candidate_id, filename, file_hash, cleaned)
-        )
-        conn.commit()
-        print(f"Processed {filename} → {candidate_id}")
-
-"""
-Function:
-- Extracts text from a single job description PDF
-- Applies JD-specific filtering (drops boilerplate sections and future-skill sentences)
-- Cleans the text for embedding and saves it to the SQLite DB with a unique JD ID
-- Reuses an existing JD if the same file (by hash) was already processed
-Returns: the JD's unique ID (JD_#)
-"""
-def ingest_jd(jd_path):
-    # read bytes for duplicate detection
-    with open(jd_path, "rb") as f:
-        file_bytes = f.read()
-    file_hash = get_file_hash(file_bytes)
-
-    # if this exact JD was already processed, reuse it instead of reprocessing
-    existing = conn.execute(
-        "SELECT jd_id FROM job_descriptions WHERE hash = ?", (file_hash,)
-    ).fetchone()
-    if existing:
-        print(f"JD already processed — reusing {existing[0]}")
-        return existing[0]
-
-    # extract text, then apply the two JD-specific filters before cleaning
-    text = extract_text(jd_path)
-    text = filter_jd_sections(text.strip())       # drop whole boilerplate sections by header
-    text = filter_excluded_sentences(text)        # drop future-skill / boilerplate sentences
-    cleaned = clean_text_for_sbert(text)
-
-    filename = os.path.basename(jd_path)
-    # JD ID is derived from the first 8 chars of the file hash
-    jd_id = f"JD_{file_hash[:8]}"
-
-    # save the JD mapping with the final cleaned text
-    conn.execute(
-        "INSERT OR REPLACE INTO job_descriptions (jd_id, filename, hash, cleaned_text) VALUES (?, ?, ?, ?)",
-        (jd_id, filename, file_hash, cleaned)
-    )
-    conn.commit()
-    print(f"Job description processed → {jd_id}")
-    return jd_id
-
 
 # --- Main pipeline --- #
 
 # Step 1: ingest all resumes and the job description into the DB
-ingest_resumes(RESUME_FOLDER)
-ingest_jd(JD_PATH)
+# extract_resumes takes a LIST of PDF paths, so glob the folder first
+resume_pdf_paths = [
+    os.path.join(RESUME_FOLDER, f)
+    for f in os.listdir(RESUME_FOLDER)
+    if f.endswith(".pdf")
+]
+if not resume_pdf_paths:
+    print(f"No PDFs found in {RESUME_FOLDER}")
+    sys.exit(1)
+
+# delegate to the engine — handles staging, dedup, extraction, anonymization, and cleaning
+extract_resumes(resume_pdf_paths)
+extract_jd(JD_PATH)
 
 # pull every stored candidate back out for embedding
 rows = conn.execute("SELECT candidate_id, filename, cleaned_text FROM candidates").fetchall()
