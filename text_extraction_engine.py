@@ -9,12 +9,9 @@ import spacy
 import re
 import os
 import hashlib
-import sys
 import shutil
 import tempfile
 import sqlite3
-
-# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from extraction import extract_text
 from preprocessing import filter_jd_sections, filter_excluded_sentences, clean_text_for_sbert
