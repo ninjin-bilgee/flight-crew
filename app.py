@@ -213,7 +213,7 @@ if run:
         # if weak_batch is True, no candidate was a strong match — warn the user
         if ranking.get("weak_batch"):
             st.warning(
-                "⚠️ No strong matches found — even the top candidate is a weak fit "
+                "No strong matches found — even the top candidate is a weak fit "
                 "for this job description. Consider uploading more resumes or revising the JD."
             )
 
@@ -233,9 +233,9 @@ if run:
 
                 # pick a color emoji based on how strong the match is
                 color = (
-                    "🟢" if score_pct >= 60    # strong match
-                    else "🟡" if score_pct >= 40  # moderate match
-                    else "🔴"                      # weak match
+                    "Strong match" if score_pct >= 60    # strong match
+                    else "Moderate match" if score_pct >= 40  # moderate match
+                    else "Weak match"                      # weak match
                 )
 
                 # show the colored emoji and the percentage score
@@ -272,7 +272,7 @@ if run:
 
         # show a download button — clicking it downloads the CSV to the user's computer
         st.download_button(
-            label="⬇️ Download Results as CSV",
+            label="⬇Download Results as CSV",
             data=buf.getvalue(),       # the CSV content as a string
             file_name="ranked_results.csv",
             mime="text/csv",           # tells the browser this is a CSV file

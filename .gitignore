@@ -4,9 +4,6 @@
 # Ignore the extracted markdown files
 resumes_extracted_md/*.md
 
-# Ignore the candidate map file @ PROD
-# candidate_map.json
-
 # Ignore the original PDF resumes @ PROD
 # resumes_pdf/*.pdf
 
@@ -18,5 +15,7 @@ __pycache__/
 *.pyc
 
 *.csv
+
+test_pdfs/*.pdf
 
 

@@ -9,7 +9,6 @@ import numpy as np
 from sentence_transformers import SentenceTransformer, CrossEncoder
 from pathlib import Path
 
-# module-level model instances — loaded once, reused across all calls
 _model = None
 _cross_encoder = None
 
@@ -21,7 +20,7 @@ Function: lazily loads the SBERT bi-encoder model
 def _get_model():
     global _model
     if _model is None:
-        #_model = SentenceTransformer('all-MiniLM-L6-v2')   # old 384-dim model
+        #_model = SentenceTransformer('all-MiniLM-L6-v2') 
         _model = SentenceTransformer('all-mpnet-base-v2')
     return _model
 
@@ -63,7 +62,7 @@ def get_embedding(text: str, resume_id: str = None) -> np.ndarray:
 
     # If resume_id provided, save to cache
     if resume_id is not None:
-        cache_path.parent.mkdir(parents=True, exist_ok=True)  # ensure folder exists
+        cache_path.parent.mkdir(parents=True, exist_ok=True)  # ensures folder exists
         np.save(cache_path, embedding)
 
     return embedding
