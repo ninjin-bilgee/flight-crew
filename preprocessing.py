@@ -52,6 +52,9 @@ VALID_HEADERS = {
     "language abilities",
     "duties",
     "duties and responsibilities",
+    "job description",
+    "additional qualifications",
+    "additional job description",
 }
 
 # JD: sentence-level exclusions (catches stuff buried in paragraphs)
