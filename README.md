@@ -2,11 +2,10 @@
 
 ## Resume Parser and Ranker Tool
 
-A tool that parses uploaded resumes, anonymizes candidate PII, and ranks them
-against a job description using semantic embeddings and a cross-encoder re-ranker.
+A tool that parses uploaded resumes, anonymizes candidate PII, and ranks them against a job description using semantic embeddings and a cross-encoder re-ranker.
 
 
-### Dependencies and Installment Versions
+### Dependencies and Installation Versions
 
 Direct dependencies (all other packages install automatically as sub-dependencies):
 
@@ -14,7 +13,6 @@ Direct dependencies (all other packages install automatically as sub-dependencie
 pip install \
   PyMuPDF==1.27.2.3 \
   pymupdf4llm==1.27.2.3 \
-  pdfplumber==0.11.9 \
   spacy==3.8.13 \
   sentence-transformers==5.5.0 \
   faiss-cpu==1.13.2 \
@@ -22,6 +20,12 @@ pip install \
   fire==0.7.1 \
   streamlit==1.57.0
 ```
+
+#### Hugging Face models
+The pipeline uses three models downloaded automatically on first run via Hugging Face Hub:
+- `sentence-transformers/all-mpnet-base-v2` — bi-encoder for resume/JD embeddings (768-dim)
+- `cross-encoder/ms-marco-MiniLM-L-6-v2` — cross-encoder reranker, scores JD-resume pairs
+- `spacy/en_core_web_trf` — transformer-based NER, used for PII anonymization
 
 #### spaCy model:
 ```
@@ -48,7 +52,7 @@ PDF upload
   --> SBERT embeddings (all-mpnet-base-v2, 768-dim)
   --> FAISS retrieval (retrieves the full candidate pool)
   --> Cross-encoder re-ranking (reads JD + resume together, drives ranking quality)
-  --> Per-batch score calibration (0-1 display scores) + weak-batch flag
+  --> Per-batch score calibration (0–100% display scores) + weak-batch flag
   --> Ranked results + CSV export
 ```
  
@@ -57,18 +61,18 @@ The ranking uses a standard **retrieve-then-rerank** design: FAISS retrieves the
 ### How to Run
  
 ```
-python run.py <resume_folder> <jd_pdf_path>
+python main.py <resume_folder> <jd_pdf_path>
 ```
  
 Example:
 ```
-python run.py data/resumes/ data/jd.pdf
+python main.py data/resumes/ data/jd.pdf
 ```
  
 This ingests all resume PDFs in the folder and the job description, builds the index, ranks the resumes, prints the results, and writes `ranked_results.csv`.
  
 **Resetting between sessions:** the database and embedding cache are cleared
-automatically when `run.py` finishes. If a run is interrupted, manually delete:
+automatically when `main.py` finishes. If a run is interrupted, manually delete:
 ```
 rm candidate_map.db
 rm -rf data/embeddings/
@@ -81,7 +85,7 @@ File-based SQLite database with two tables:
 - `candidates` — candidate_id, filename, hash, cleaned_text
 - `job_descriptions` — jd_id, filename, hash, cleaned_text
 - Hash-based duplicate detection — reprocessing the same file is skipped automatically.
-- Deleted automatically at the end of each `run.py` session.
+- Deleted automatically at the end of each `main.py` session.
 
 ### Modules
 
@@ -121,5 +125,5 @@ File-based SQLite database with two tables:
 ### Notes
 - Real-world Workday application-export PDFs are multi-column and noisy; the
   extraction layer handles them adaptively, but layout-aware extraction libraries are a recommended future improvement.
-- The `similarity_score` shown in results is a **batch-relative** score — it
+- The `similarity_score` shown in results is a **batch-relative** score (0–100%) — it
   reflects fit relative to the other resumes uploaded for the same job, not an absolute hireability score.
