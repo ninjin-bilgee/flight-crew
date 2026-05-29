@@ -1,0 +1,21 @@
+.DS_Store
+**/.DS_Store
+
+# Ignore the extracted markdown files
+resumes_extracted_md/*.md
+
+# Ignore the original PDF resumes @ PROD
+# resumes_pdf/*.pdf
+
+candidate_map.db
+data/embeddings/
+venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+
+*.csv
+
+test_pdfs/*.pdf
+
+
