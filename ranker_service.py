@@ -124,9 +124,9 @@ def rank_resumes(job_description_text, k=10):
     # guard against divide-by-zero if every logit is identical
     std = logits.std() if logits.std() > 0 else 1.0
     for r in pool:
-        # z-score the logit, then squash through a sigmoid (1.4 widens the spread)
+        # z-score the logit, then squash through a sigmoid (2.0 widens the spread)
         z = (r['ce_score'] - mean) / std
-        r['similarity_score'] = float(1 / (1 + np.exp(-z * 1.4)))
+        r['similarity_score'] = float(1 / (1 + np.exp(-z * 2.0)))
 
     # Assign ranks — 1-indexed, in sorted order, for the top k results
     for i, r in enumerate(pool[:k]):
