@@ -21,4 +21,10 @@ app.py
 test_pdfs
 testdata
 
+__pycache__/
+faiss_resume_index
+faiss_resume_index.meta.json
+results.json
+data/embeddings/
+
 
