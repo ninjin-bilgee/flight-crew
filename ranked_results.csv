@@ -1,8 +1,10 @@
-candidate_id,filename,score,skills
-Candidate_3,sample_resume_3.pdf,0.91,"Python, Machine Learning"
-Candidate_1,sample_resume_1.pdf,0.85,"Python, SQL"
-Candidate_2,sample_resume_2.pdf,0.62,"Java, Excel"
-939edbb5,rb.pdf,0.0,"python, fastapi"
-a4f758af,rb.pdf,0.0,"python, fastapi"
-623b114b,rb.pdf,0.0,"python, fastapi"
-e104a304,rb.pdf,0.0,"python, fastapi"
+rank,filename,similarity_score
+1,sample_resume_6.pdf,99.09
+2,sample_resume_3.pdf,89.21
+3,sample_resume_5.pdf,88.13
+4,sample_resume_15.pdf,84.84
+5,sample_resume_8.pdf,84.61
+6,sample_resume_19.pdf,82.69
+7,sample_resume_10.pdf,66.18
+8,sample_resume_7.pdf,65.31
+9,sample_resume_4.pdf,61.66
